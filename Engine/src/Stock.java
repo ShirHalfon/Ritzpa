@@ -58,7 +58,7 @@ public class Stock {
     public String toString(){
 
         //Needs improvement!!!!!
-        String str = new String("Stock Name: " + m_companyName + "Stock Symbol: " + m_Symbol);
+        String str = new String("Stock Name: " + m_companyName + "Stock Symbol: " + m_Symbol + "\n");
         return str;
     }
 }
