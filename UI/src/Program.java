@@ -10,9 +10,11 @@ public class Program {
     newEngine.m_Stocks.add(stock1);
     newEngine.m_Stocks.add(stock2);
     Deal newDeal = new Deal(1, 90, 20);
+    Order newOrder = new Order(90, 1, OrderType.LMT, OrderDirection.BUYING);
 
     System.out.println(newEngine.m_Stocks.toString());
     System.out.println(newDeal.toString());
+    System.out.println(newOrder.toString());
 
     }
 }

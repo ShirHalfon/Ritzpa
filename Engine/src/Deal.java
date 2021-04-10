@@ -56,7 +56,7 @@ public class Deal {
                                                     "- Cycle: " + m_Cycle + "\n" +
                                                     "- Price: " + m_Price + "\n" +
                                                     "- Amount: " + m_Amount + "\n" +
-                                                    "- Date: " + m_Date.toString());
+                                                    "- Date: " + m_Date.toString() + "\n");
 
         return str;
     }
