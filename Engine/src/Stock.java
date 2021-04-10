@@ -20,6 +20,9 @@ public class Stock {
     public Stock(String m_companyName, String m_Symbol) {
         this.m_companyName = m_companyName;
         this.m_Symbol = m_Symbol;
+        this.m_DealsList = new ArrayList<>();
+        this.m_BuyingOrders = new ArrayList<>();
+        this.m_SellingOrders = new ArrayList<>();
     }
 
     public int getM_StockPrice() {
@@ -57,8 +60,14 @@ public class Stock {
     @Override
     public String toString(){
 
-        //Needs improvement!!!!!
-        String str = new String("Stock Name: " + m_companyName + "Stock Symbol: " + m_Symbol + "\n");
+        //Needs improvement!!!!! The way the lists are printed
+        String str = new String("Stock Details: " + "\n" +
+                                        "- Company Name: " + m_companyName.toString() + "\n"+
+                                        "- Symbol: " + m_Symbol.toUpperCase() + "\n" +
+                                        "- Price: " + m_StockPrice + "\n" +
+                                        "- Deals:\n" + m_DealsList.toString() + "\n" +
+                                        "- Buying Orders:\n" + m_BuyingOrders.toString() + "\n" +
+                                        "- Selling Orders:\n" + m_SellingOrders.toString() + "\n");
         return str;
     }
 }
