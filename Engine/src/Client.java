@@ -9,13 +9,16 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Client {
 //some changes
     private final static String JAXB_XML_GAME_PACKAGE_NAME = "Generated";
+
     public static void ReadingANewFile(String i_FileNameToReadFrom,ConcreteEngine allStocksInOurDataStructures) throws Exception {
-        /**the UI checks the FILE NAME**/
+        /**the UI checks the FILE NAME
+         * This shoule not be STATIC!!!**/
         /*
          * Need to read the XML     V
          * Validation on Data       V
@@ -35,9 +38,7 @@ public class Client {
             StockCheck(allStocksInOurDataStructures,stockToAdd);//if the stock isn't valid an exaption wiil be thrown
             allStocksInOurDataStructures.getStockList().add(stockToAdd);
         }
-        builder = new StockListBuilder();
-        plan = builder.getDTO(allStocksInOurDataStructures.getStockList());
-        System.out.println(plan.toString());
+
     }
 
     private static void FileNameCheck(String fileName) throws Exception {
@@ -95,7 +96,7 @@ public class Client {
         return null;
     }
 
-    public void ShowAllStocks() {
+    public void ShowAllStocks(ArrayList<Stock> stocks, DTOBuilder builderToInit, DTOPlan planToInit) throws Exception{
         /**EACH SHOW ISN'T REALLY SHOW - RETURN AN OBJECT THAT WILL BE SHOWN IN THE UI NO PRINTS FROM HERE (USE BUILDER)
          **/
         /*
@@ -107,11 +108,16 @@ public class Client {
          * 5. Sum of all deals made so far (can use the Stream Method)
          * Note: This can't be chosen without a file in database
          * */
-
-
+        try {
+            builderToInit = new StockListBuilder();
+            planToInit = builderToInit.getDTO(stocks);
+        }
+        catch (Exception exception) {
+            throw exception;
+        }
     }
 
-    public void ShowSingleStock() {
+    public void ShowSingleStock(Stock stockToShow, DTOBuilder builderToInit, DTOPlan planToInit) {
         /**EACH SHOW ISN'T REALLY SHOW - RETURN AN OBJECT THAT WILL BE SHOWN IN THE UI NO PRINTS FROM HERE (USE BUILDER)
          **/
         /*
@@ -129,6 +135,13 @@ public class Client {
          *          - Price
          *          - Total worth
          * */
+        try {
+            builderToInit = new SingleStockBuilder();
+            planToInit = builderToInit.getDTO(stockToShow);
+        }
+        catch (Exception exception) {
+            throw exception;
+        }
     }
 
     public void OrderAction() {
@@ -162,7 +175,7 @@ public class Client {
         */
     }
 
-    public void ShowOrdersForAllStocks() {
+    public void ShowOrdersForAllStocks(ArrayList<Stock> stocks, DTOBuilder builderToInit, DTOPlan planToInit) throws Exception {
 
         /**EACH SHOW ISN'T REALLY SHOW - RETURN AN OBJECT THAT WILL BE SHOWN IN THE UI NO PRINTS FROM HERE (USE BUILDER)
          **/
@@ -178,6 +191,13 @@ public class Client {
          *       d. Cycle
          * 3. Sum of the Cycle for each list
          * */
+        try {
+            builderToInit = new OrdersListBuilder();
+            planToInit = builderToInit.getDTO(stocks);
+        }
+        catch (Exception exception) {
+            throw exception;
+        }
     }
 
     public void Exit() {

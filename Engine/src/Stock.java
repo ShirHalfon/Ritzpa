@@ -68,4 +68,5 @@ public class Stock {
         this.sellingOrders = sellingOrders;
     }
 
+
 }
