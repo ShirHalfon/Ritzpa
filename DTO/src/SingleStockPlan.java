@@ -62,7 +62,7 @@ public class SingleStockPlan implements DTOPlan{
     }
 
     public void setSumCycle(ArrayList<Deal> dealsList) {
-        this.sumCycle = "- Sum of all cycles: " + Integer.toString(dealsList.stream().mapToInt(Deal::getM_Cycle).sum()) + "\n";
+        this.sumCycle = "- Sum of all cycles: " + Integer.toString(dealsList.stream().mapToInt(Deal::getCycle).sum()) + "\n";
     }
 
     public void setDealsList(ArrayList<Deal> dealsList) {

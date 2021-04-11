@@ -1,71 +1,70 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 public class Order {
 
-    private int m_Price;
-    private int m_Amount;
-    private String m_Date;
-    private OrderType m_Type;
-    private OrderDirection m_Direction;
+    private int price;
+    private int amount;
+    private String date;
+    private OrderType type;
+    private OrderDirection direction;
 
     public Order(int m_Price, int m_Amount, OrderType m_Type, OrderDirection m_Direction) {
-        this.m_Price = m_Price;
-        this.m_Amount = m_Amount;
-        this.m_Date = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss:SSS").format(LocalDateTime.now());
-        this.m_Type = m_Type;
-        this.m_Direction = m_Direction;
+        this.price = m_Price;
+        this.amount = m_Amount;
+        this.date = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss:SSS").format(LocalDateTime.now());
+        this.type = m_Type;
+        this.direction = m_Direction;
     }
 
-    public int getM_Price() {
-        return m_Price;
+    public int getPrice() {
+        return price;
     }
 
-    public int getM_Amount() {
-        return m_Amount;
+    public int getAmount() {
+        return amount;
     }
 
-    public String getM_Date() {
-        return m_Date;
+    public String getDate() {
+        return date;
     }
 
-    public OrderType getM_Type() {
-        return m_Type;
+    public OrderType getType() {
+        return type;
     }
 
-    public OrderDirection getM_Direction() {
-        return m_Direction;
+    public OrderDirection getDirection() {
+        return direction;
     }
 
-    public void setM_Price(int m_Price) {
-        this.m_Price = m_Price;
+    public void setPrice(int price) {
+        this.price = price;
     }
 
-    public void setM_Amount(int m_Amount) {
-        this.m_Amount = m_Amount;
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 
-    public void setM_Date(String m_Date) {
-        this.m_Date = m_Date;
+    public void setDate(String date) {
+        this.date = date;
     }
 
-    public void setM_Type(OrderType m_Type) {
-        this.m_Type = m_Type;
+    public void setType(OrderType type) {
+        this.type = type;
     }
 
-    public void setM_Direction(OrderDirection m_Direction) {
-        this.m_Direction = m_Direction;
+    public void setDirection(OrderDirection direction) {
+        this.direction = direction;
     }
 
     @Override
     public String toString() {
         String str = new String("Order details:\n" +
-                                        "- Price: " + m_Price + "\n" +
-                                        "- Amount: " + m_Amount + "\n" +
-                                        "- Date: " + m_Date.toString() + "\n" +
-                                        "- Type: " + m_Type + "\n" +
-                                        "- Direction: " + m_Direction + "\n");
+                                        "- Price: " + price + "\n" +
+                                        "- Amount: " + amount + "\n" +
+                                        "- Date: " + date.toString() + "\n" +
+                                        "- Type: " + type + "\n" +
+                                        "- Direction: " + direction + "\n");
 
         return str;
     }

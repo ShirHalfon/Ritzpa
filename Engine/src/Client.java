@@ -62,27 +62,27 @@ public class Client {
         GENERAL-                                    V
         1.for each company name only one symbol     V
          */
-        if(stockToCheck.getM_Symbol().length()==0)
-            throw new Exception("The symbol of "+stockToCheck.getM_companyName()+" is an empty string");
-        else for(int i=0;i<stockToCheck.getM_Symbol().length();i++){
+        if(stockToCheck.getSymbol().length()==0)
+            throw new Exception("The symbol of "+stockToCheck.getCompanyName()+" is an empty string");
+        else for(int i=0;i<stockToCheck.getSymbol().length();i++){
             if(!(((c>='A')&&(c<='Z'))||(((c>='a')&&(c<='z')))))
-                throw new Exception("There is a non-letter char in the symbol of "+stockToCheck.getM_companyName());
+                throw new Exception("There is a non-letter char in the symbol of "+stockToCheck.getCompanyName());
         }
-        if((stockToCheck.getM_Symbol().compareTo(stockToCheck.getM_Symbol().toUpperCase()))!=0){
+        if((stockToCheck.getSymbol().compareTo(stockToCheck.getSymbol().toUpperCase()))!=0){
             throw new Exception("The symbol isnwt in uppercase");
         }
-        if(stockToCheck.getM_StockPrice()<=0)
+        if(stockToCheck.getStockPrice()<=0)
         {
             throw new Exception("the stock price is a non possitive number.");
         }
         //GENERAL
-        Stock stockWithTheSameName=findStockByName(stockToCheck.getM_companyName(),engine);
+        Stock stockWithTheSameName=findStockByName(stockToCheck.getCompanyName(),engine);
         if(stockWithTheSameName!=null)
         {//there is a stock with the same name
             //need to check the symbol
-            if((stockToCheck.getM_Symbol().compareTo(stockWithTheSameName.getM_Symbol()))!=0)
+            if((stockToCheck.getSymbol().compareTo(stockWithTheSameName.getSymbol()))!=0)
             {
-                throw new Exception("The company "+stockToCheck.getM_companyName()+" already exists with different symbol");
+                throw new Exception("The company "+stockToCheck.getCompanyName()+" already exists with different symbol");
             }
         }
     }
@@ -90,7 +90,7 @@ public class Client {
     public static Stock findStockByName(String stockName,ConcreteEngine engine)
     {
         for (Stock stock: engine.getStockList()) {
-            if(stockName.compareTo(stock.getM_companyName())==0)
+            if(stockName.compareTo(stock.getCompanyName())==0)
                 return stock;
         }
         return null;

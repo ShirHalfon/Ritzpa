@@ -1,6 +1,5 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 public class Deal {
 
@@ -8,57 +7,57 @@ public class Deal {
     * 1. Add show method to activate in Client
     * */
 
-    private int m_Cycle;
-    private int m_Price;
-    private int m_Amount;
-    private String m_Date;
+    private int cycle;
+    private int price;
+    private int amount;
+    private String date;
 
     public Deal(int m_Price, int m_Amount) {
-        this.m_Cycle = 0;
-        this.m_Price = m_Price;
-        this.m_Amount = m_Amount;
-        this.m_Date = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss:SSS").format(LocalDateTime.now());
+        this.cycle = 0;
+        this.price = m_Price;
+        this.amount = m_Amount;
+        this.date = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss:SSS").format(LocalDateTime.now());
     }
 
-    public int getM_Cycle() {
-        return m_Cycle;
+    public int getCycle() {
+        return cycle;
     }
 
-    public int getM_Price() {
-        return m_Price;
+    public int getPrice() {
+        return price;
     }
 
-    public int getM_Amount() {
-        return m_Amount;
+    public int getAmount() {
+        return amount;
     }
 
-    public String getM_Date() {
-        return m_Date;
+    public String getDate() {
+        return date;
     }
 
-    public void setM_Cycle(int m_Cycle) {
+    public void setCycle(int cycle) {
         //need to calculate
-        this.m_Cycle = m_Cycle;}
+        this.cycle = cycle;}
 
-    public void setM_Price(int m_Price) {
-        this.m_Price = m_Price;
+    public void setPrice(int price) {
+        this.price = price;
     }
 
-    public void setM_Amount(int m_Amount) {
-        this.m_Amount = m_Amount;
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 
-    public void setM_Date(String m_Date) {
-        this.m_Date = m_Date;
+    public void setDate(String date) {
+        this.date = date;
     }
 
     @Override
     public String toString(){
         String str = new String("Deal details:\n" +
-                                                    "- Cycle: " + m_Cycle + "\n" +
-                                                    "- Price: " + m_Price + "\n" +
-                                                    "- Amount: " + m_Amount + "\n" +
-                                                    "- Date: " + m_Date.toString() + "\n");
+                                                    "- Cycle: " + cycle + "\n" +
+                                                    "- Price: " + price + "\n" +
+                                                    "- Amount: " + amount + "\n" +
+                                                    "- Date: " + date.toString() + "\n");
 
         return str;
     }

@@ -13,10 +13,10 @@ public class DealPlan implements DTOPlan{
 
     @Override
     public void setData() {
-        this.setAmount(dealToExtractData.getM_Amount());
-        this.setCycle(dealToExtractData.getM_Cycle());
-        this.setDate(dealToExtractData.getM_Date());
-        this.setPrice(dealToExtractData.getM_Price());
+        this.setAmount(dealToExtractData.getAmount());
+        this.setCycle(dealToExtractData.getCycle());
+        this.setDate(dealToExtractData.getDate());
+        this.setPrice(dealToExtractData.getPrice());
     }
 
     public void setCycle(int cycle) {

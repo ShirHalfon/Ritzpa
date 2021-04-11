@@ -19,8 +19,8 @@ public class Stock {
     private ArrayList<Order> buyingOrders;
     private ArrayList<Order> sellingOrders;
 
-    public Stock(String m_companyName, String m_Symbol, int stockPrice) {
-        this.companyName = m_companyName;
+    public Stock(String companyName, String m_Symbol, int stockPrice) {
+        this.companyName = companyName;
         this.symbol = m_Symbol;
         this.stockPrice = stockPrice;
         this.dealsList = new ArrayList<>();
