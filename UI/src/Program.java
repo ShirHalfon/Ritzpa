@@ -16,14 +16,17 @@ public class Program {
     public static void main(String[] args) {
   String fileName= new String ("Engine/src/Sources/ex1-small.xml");
     try {
-        Client.ReadingANewFile(fileName);
+        ConcreteEngine engine=new ConcreteEngine();
+        Client.ReadingANewFile(fileName,engine);
     } catch (FileNotFoundException e) {
         e.printStackTrace();
     } catch (JAXBException e) {
         e.printStackTrace();
+    } catch (Exception e) {
+        e.printStackTrace();
     }
 
-    System.out.println("all is good");
+        System.out.println("all is good");
 
    /*ConcreteEngine newEngine = new ConcreteEngine();
     Stock stock1 = new Stock("Google", "GoGl", 50);
