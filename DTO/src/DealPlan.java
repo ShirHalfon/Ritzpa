@@ -20,17 +20,14 @@ public class DealPlan implements DTOPlan{
     }
 
     public void setCycle(int cycle) {
-        Integer cycleToExtract = cycle;
-        this.cycle = "- Cycle: " + cycleToExtract.toString() + "\n";
+        this.cycle = "- Cycle: " + Integer.toString(cycle) + "\n";
     }
 
     public void setPrice(int price) {
-        Integer priceToExtract = price;
-        this.price = "- Price: " + priceToExtract.toString() + "\n";    }
+        this.price = "- Price: " + Integer.toString(price) + "\n";    }
 
     public void setAmount(int amount) {
-        Integer amountToExtract = amount;
-        this.amount = "- Amount: " +  amountToExtract.toString() + "\n";
+        this.amount = "- Amount: " + Integer.toString(amount) + "\n";
     }
 
     public void setDate(String date) {
