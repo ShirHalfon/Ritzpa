@@ -151,6 +151,16 @@ public class Client {
          * Note: note all the specifications - This is the heart of the exercise - Think of how and where to actually
          * implement it
          * */
+
+        /*getting a new order.
+        need to check if buy or cell
+        when found-->new sale,remove the correct order from the list.
+        new deal sort by date.
+
+        if the only one that can go, matches partly
+
+        matches partly
+        */
     }
 
     public void ShowOrdersForAllStocks() {
