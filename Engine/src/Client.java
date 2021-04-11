@@ -14,14 +14,15 @@ import java.util.Iterator;
 public class Client {
 //some changes
     private final static String JAXB_XML_GAME_PACKAGE_NAME = "Generated";
-
     public static void ReadingANewFile(String i_FileNameToReadFrom,ConcreteEngine allStocksInOurDataStructures) throws Exception {
         /**the UI checks the FILE NAME**/
         /*
          * Need to read the XML     V
-         * Validation on Data
+         * Validation on Data       V
          * Copy all the data        V
          * */
+        DTOBuilder builder;
+        DTOPlan plan;
         System.out.println("From File to Object");
         FileNameCheck(i_FileNameToReadFrom);
         File file=new File(i_FileNameToReadFrom);
@@ -34,7 +35,9 @@ public class Client {
             StockCheck(allStocksInOurDataStructures,stockToAdd);//if the stock isn't valid an exaption wiil be thrown
             allStocksInOurDataStructures.getStockList().add(stockToAdd);
         }
-        System.out.println(allStocksInOurDataStructures.getStockList().toString());/**EROR!!!*/
+        builder = new StockListBuilder();
+        plan = builder.getDTO(allStocksInOurDataStructures.getStockList());
+        System.out.println(plan.toString());
     }
 
     private static void FileNameCheck(String fileName) throws Exception {

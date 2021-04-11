@@ -8,6 +8,7 @@ public class Order {
     private String date;
     private OrderType type;
     private OrderDirection direction;
+    private String symbol;
 
     public Order(int m_Price, int m_Amount, OrderType m_Type, OrderDirection m_Direction) {
         this.price = m_Price;
@@ -15,6 +16,10 @@ public class Order {
         this.date = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss:SSS").format(LocalDateTime.now());
         this.type = m_Type;
         this.direction = m_Direction;
+    }
+
+    public String getSymbol() {
+        return symbol;
     }
 
     public int getPrice() {
@@ -35,6 +40,10 @@ public class Order {
 
     public OrderDirection getDirection() {
         return direction;
+    }
+
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
     }
 
     public void setPrice(int price) {
