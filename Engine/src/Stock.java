@@ -4,6 +4,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorOrder;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.awt.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
@@ -33,6 +34,14 @@ public class Stock {
         this.m_DealsList = new ArrayList<>();
         this.m_BuyingOrders = new ArrayList<>();
         this.m_SellingOrders = new ArrayList<>();
+    }
+
+    public String getM_companyName() {
+        return m_companyName;
+    }
+
+    public String getM_Symbol() {
+        return m_Symbol;
     }
 
     public int getM_StockPrice() {
@@ -67,17 +76,4 @@ public class Stock {
         this.m_SellingOrders = m_SellingOrders;
     }
 
-    @Override
-    public String toString(){
-
-        //Needs improvement!!!!! The way the lists are printed
-        String str = new String("Stock Details: " + "\n" +
-                                        "- Company Name: " + m_companyName.toString() + "\n"+
-                                        "- Symbol: " + m_Symbol.toUpperCase() + "\n" +
-                                        "- Price: " + m_StockPrice + "\n" +
-                                        "- Deals:\n" + m_DealsList.toString() + "\n" +
-                                        "- Buying Orders:\n" + m_BuyingOrders.toString() + "\n" +
-                                        "- Selling Orders:\n" + m_SellingOrders.toString() + "\n");
-        return str;
-    }
 }

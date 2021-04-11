@@ -13,7 +13,7 @@ public class Deal {
     private int m_Amount;
     private String m_Date;
 
-    public Deal(int m_Cycle, int m_Price, int m_Amount) {
+    public Deal(int m_Price, int m_Amount) {
         this.m_Cycle = 0;
         this.m_Price = m_Price;
         this.m_Amount = m_Amount;
@@ -36,7 +36,9 @@ public class Deal {
         return m_Date;
     }
 
-    public void setM_Cycle(int m_Cycle) { this.m_Cycle = m_Cycle;}
+    public void setM_Cycle(int m_Cycle) {
+        //need to calculate
+        this.m_Cycle = m_Cycle;}
 
     public void setM_Price(int m_Price) {
         this.m_Price = m_Price;
