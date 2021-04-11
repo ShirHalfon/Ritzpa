@@ -1,10 +1,31 @@
-import com.sun.xml.internal.ws.api.pipe.Engine.*;
+/*import com.sun.deploy.util.SessionState;
+*import com.sun.security.ntlm.Client;
+*import com.sun.xml.internal.ws.api.pipe.Engine;
+*import com.sun.xml.internal.ws.api.pipe.Engine.*;
+*/
+/*import com.sun.security.ntlm.Client;*/
+import com.sun.xml.internal.ws.api.pipe.Engine;
+
+import javax.xml.bind.JAXBException;
+import java.io.File;
+import java.io.FileNotFoundException;
+
 
 public class Program {
 
     public static void main(String[] args) {
+    String fileName= new String ("Engine/src/Sources/ex1-small.xml");
+    try {
+        Client.ReadingANewFile(fileName);
+    } catch (FileNotFoundException e) {
+        e.printStackTrace();
+    } catch (JAXBException e) {
+        e.printStackTrace();
+    }
 
-    ConcreteEngine newEngine = new ConcreteEngine();
+    System.out.println("all is good");
+
+/*    ConcreteEngine newEngine = new ConcreteEngine();
     Stock stock1 = new Stock("Google", "GoGl");
     Stock stock2 = new Stock("Microsoft", "MCRSFT");
 
@@ -47,6 +68,6 @@ public class Program {
     //System.out.println(newOrder.toString());
     System.out.println(stock1);
     System.out.println(stock2);
-
+*/
     }
 }

@@ -1,5 +1,14 @@
+import com.sun.xml.internal.txw2.annotation.XmlElement;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorOrder;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+
+
+
 
 public class Stock {
 
@@ -17,9 +26,10 @@ public class Stock {
     private ArrayList<Order> m_BuyingOrders;
     private ArrayList<Order> m_SellingOrders;
 
-    public Stock(String m_companyName, String m_Symbol) {
+    public Stock(String m_companyName, String m_Symbol, int stockPrice) {
         this.m_companyName = m_companyName;
         this.m_Symbol = m_Symbol;
+        this.m_StockPrice = stockPrice;
         this.m_DealsList = new ArrayList<>();
         this.m_BuyingOrders = new ArrayList<>();
         this.m_SellingOrders = new ArrayList<>();
