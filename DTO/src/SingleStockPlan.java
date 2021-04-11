@@ -17,12 +17,12 @@ public class SingleStockPlan implements DTOPlan{
 
     @Override
     public void setData() {
-        this.setCompanyName(stockToExtractData.getM_companyName());
-        this.setDealsList(stockToExtractData.getM_DealsList());
-        this.setPrice(stockToExtractData.getM_StockPrice());
-        this.setSumCycle(stockToExtractData.getM_DealsList());
-        this.setSumDeals(stockToExtractData.getM_DealsList());
-        this.setSymbol(stockToExtractData.getM_Symbol());
+        this.setCompanyName(stockToExtractData.getCompanyName());
+        this.setDealsList(stockToExtractData.getDealsList());
+        this.setPrice(stockToExtractData.getStockPrice());
+        this.setSumCycle(stockToExtractData.getDealsList());
+        this.setSumDeals(stockToExtractData.getDealsList());
+        this.setSymbol(stockToExtractData.getSymbol());
     }
 
     public String getSymbol() {
@@ -62,7 +62,7 @@ public class SingleStockPlan implements DTOPlan{
     }
 
     public void setSumCycle(ArrayList<Deal> dealsList) {
-        this.sumCycle = "- Sum of all cycles: " + Integer.toString(dealsList.stream().mapToInt(Deal::getM_Cycle).sum()) + "\n";
+        this.sumCycle = "- Sum of all cycles: " + Integer.toString(dealsList.stream().mapToInt(Deal::getCycle).sum()) + "\n";
     }
 
     public void setDealsList(ArrayList<Deal> dealsList) {

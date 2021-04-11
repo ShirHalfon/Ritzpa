@@ -1,11 +1,3 @@
-import com.sun.xml.internal.txw2.annotation.XmlElement;
-
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorOrder;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-import java.awt.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 
@@ -20,60 +12,60 @@ public class Stock {
     * */
 
 
-    private final String m_companyName; //must have c'tor
-    private final String m_Symbol;
-    private int m_StockPrice; //Sha'ar
-    private ArrayList<Deal> m_DealsList ;
-    private ArrayList<Order> m_BuyingOrders;
-    private ArrayList<Order> m_SellingOrders;
+    private final String companyName; //must have c'tor
+    private final String symbol;
+    private int stockPrice; //Sha'ar
+    private ArrayList<Deal> dealsList;
+    private ArrayList<Order> buyingOrders;
+    private ArrayList<Order> sellingOrders;
 
-    public Stock(String m_companyName, String m_Symbol, int stockPrice) {
-        this.m_companyName = m_companyName;
-        this.m_Symbol = m_Symbol;
-        this.m_StockPrice = stockPrice;
-        this.m_DealsList = new ArrayList<>();
-        this.m_BuyingOrders = new ArrayList<>();
-        this.m_SellingOrders = new ArrayList<>();
+    public Stock(String companyName, String m_Symbol, int stockPrice) {
+        this.companyName = companyName;
+        this.symbol = m_Symbol;
+        this.stockPrice = stockPrice;
+        this.dealsList = new ArrayList<>();
+        this.buyingOrders = new ArrayList<>();
+        this.sellingOrders = new ArrayList<>();
     }
 
-    public String getM_companyName() {
-        return m_companyName;
+    public String getCompanyName() {
+        return companyName;
     }
 
-    public String getM_Symbol() {
-        return m_Symbol;
+    public String getSymbol() {
+        return symbol;
     }
 
-    public int getM_StockPrice() {
-        return m_StockPrice;
+    public int getStockPrice() {
+        return stockPrice;
     }
 
-    public ArrayList<Deal> getM_DealsList() {
-        return m_DealsList;
+    public ArrayList<Deal> getDealsList() {
+        return dealsList;
     }
 
-    public ArrayList<Order> getM_BuyingOrders() {
-        return m_BuyingOrders;
+    public ArrayList<Order> getBuyingOrders() {
+        return buyingOrders;
     }
 
-    public ArrayList<Order> getM_SellingOrders() {
-        return m_SellingOrders;
+    public ArrayList<Order> getSellingOrders() {
+        return sellingOrders;
     }
 
-    public void setM_StockPrice(int m_StockPrice) {
-        this.m_StockPrice = m_StockPrice;
+    public void setStockPrice(int stockPrice) {
+        this.stockPrice = stockPrice;
     }
 
-    public void setM_DealsList(ArrayList<Deal> m_DealsList) {
-        this.m_DealsList = m_DealsList;
+    public void setDealsList(ArrayList<Deal> dealsList) {
+        this.dealsList = dealsList;
     }
 
-    public void setM_BuyingOrders(ArrayList<Order> m_BuyingOrders) {
-        this.m_BuyingOrders = m_BuyingOrders;
+    public void setBuyingOrders(ArrayList<Order> buyingOrders) {
+        this.buyingOrders = buyingOrders;
     }
 
-    public void setM_SellingOrders(ArrayList<Order> m_SellingOrders) {
-        this.m_SellingOrders = m_SellingOrders;
+    public void setSellingOrders(ArrayList<Order> sellingOrders) {
+        this.sellingOrders = sellingOrders;
     }
 
 }
