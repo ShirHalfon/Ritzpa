@@ -1,15 +1,11 @@
 import Generated.RizpaStockExchangeDescriptor;
 import Generated.RseStock;
-import Generated.RseStocks;
 
 import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.Iterator;
 
 public class Client {
 
@@ -63,26 +59,26 @@ public class Client {
         1.for each company name only one symbol     V
          */
         if(stockToCheck.getSymbol().length()==0)
-            throw new Exception("The symbol of "+stockToCheck.getName()+" is an empty string");
+            throw new Exception("The symbol of "+stockToCheck.getCompanyName()+" is an empty string");
         else for (char c:stockToCheck.getSymbol()) {
             if(!(((c>='A')&&(c<='Z'))||(((c>='a')&&(c<='z')))))
-                throw new Exception("There is a non-letter char in the symbol of "+stockToCheck.getName());
+                throw new Exception("There is a non-letter char in the symbol of "+stockToCheck.getCompanyName());
         }
         if(!(stockToCheck.getSymbol().compareTo(stockToCheck.getSymbol().toUpperCase()))){
             throw new Exception("The symbol isnwt in uppercase");
         }
-        if(stockToCheck.getM_StockPrice()<=0)
+        if(stockToCheck.getStockPrice()<=0)
         {
             throw new Exception("the stock price is a non possitive number.");
         }
         //GENERAL
-        Stock stockWithTheSameName=findStockByName(stockToCheck.getName(),engine);
+        Stock stockWithTheSameName=findStockByName(stockToCheck.getCompanyName(),engine);
         if(stockWithTheSameName!=null)
         {//there is a stock with the same name
             //need to check the symbol
             if(!(stockToCheck.getSymbol().compareTo(stockWithTheSameName.getSymbol())))
             {
-                throw new Exception("The company "+stockToCheck.getName()+" already exists with different symbol");
+                throw new Exception("The company "+stockToCheck.getCompanyName()+" already exists with different symbol");
             }
         }
     }
