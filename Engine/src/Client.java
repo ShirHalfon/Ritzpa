@@ -29,22 +29,18 @@ public class Client {
         JAXBContext jaxbContext = JAXBContext.newInstance(JAXB_XML_GAME_PACKAGE_NAME);
         Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
         RizpaStockExchangeDescriptor RSEexchangeDescriptor = (RizpaStockExchangeDescriptor) unmarshaller.unmarshal(file);
-
         for (RseStock stock : RSEexchangeDescriptor.getRseStocks().getRseStock()) {
             Stock stockToAdd = new Stock(stock.getRseCompanyName(), stock.getRseSymbol(), stock.getRsePrice());
             StockCheck(allStocksInOurDataStructures,stockToAdd);//if the stock isn't valid an exaption wiil be thrown
             allStocksInOurDataStructures.getStockList().add(stockToAdd);
         }
-        System.out.println(allStocksInOurDataStructures.getStockList().toString());
-
-
+        System.out.println(allStocksInOurDataStructures.getStockList().toString());/**EROR!!!*/
     }
 
     private static void FileNameCheck(String fileName) throws Exception {
         String fileFormat=".xml";
         int stringLen=fileName.length();
-
-        if(!fileName.subSequence(stringLen-4,stringLen-1).equals(fileFormat))
+        if(fileName.substring(stringLen-4,stringLen).compareTo(fileFormat)!=0)
             throw new Exception("Incorrect file format.");
     }
 
@@ -65,10 +61,10 @@ public class Client {
         if(stockToCheck.getSymbol().length()==0)
             throw new Exception("The symbol of "+stockToCheck.getCompanyName()+" is an empty string");
         else for(int i=0;i<stockToCheck.getSymbol().length();i++){
-            if(!(((c>='A')&&(c<='Z'))||(((c>='a')&&(c<='z')))))
+            if(!(((stockToCheck.getSymbol().charAt(i)>='A')&&(stockToCheck.getSymbol().charAt(i)<='Z'))||(((stockToCheck.getSymbol().charAt(i)>='a')&&(stockToCheck.getSymbol().charAt(i)<='z')))))
                 throw new Exception("There is a non-letter char in the symbol of "+stockToCheck.getCompanyName());
         }
-        if((stockToCheck.getSymbol().compareTo(stockToCheck.getSymbol().toUpperCase()))!=0){
+        if((stockToCheck.getSymbol().compareToIgnoreCase(stockToCheck.getSymbol()))!=0){
             throw new Exception("The symbol isnwt in uppercase");
         }
         if(stockToCheck.getStockPrice()<=0)
@@ -87,7 +83,7 @@ public class Client {
         }
     }
 
-    public static Stock findStockByName(String stockName,ConcreteEngine engine)
+    private static Stock findStockByName(String stockName,ConcreteEngine engine)
     {
         for (Stock stock: engine.getStockList()) {
             if(stockName.compareTo(stock.getCompanyName())==0)
