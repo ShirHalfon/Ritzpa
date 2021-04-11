@@ -15,28 +15,85 @@ public class Client {
 
     private final static String JAXB_XML_GAME_PACKAGE_NAME = "Generated";
 
-   public static void ReadingANewFile(String i_FileNameToReadFrom) throws FileNotFoundException, JAXBException {
+    public static void ReadingANewFile(String i_FileNameToReadFrom,ConcreteEngine allStocksInOurDataStructures) throws Exception {
         /**the UI checks the FILE NAME**/
         /*
          * Need to read the XML     V
          * Validation on Data
          * Copy all the data        V
-         */
-
+         * */
         System.out.println("From File to Object");
+        FileNameCheck(i_FileNameToReadFrom);
         File file=new File(i_FileNameToReadFrom);
         InputStream inputStream = new FileInputStream(i_FileNameToReadFrom);
         JAXBContext jaxbContext = JAXBContext.newInstance(JAXB_XML_GAME_PACKAGE_NAME);
         Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
         RizpaStockExchangeDescriptor RSEexchangeDescriptor = (RizpaStockExchangeDescriptor) unmarshaller.unmarshal(file);
 
-        ConcreteEngine allStocksInOurDataStructures = new ConcreteEngine();
-
         for (RseStock stock : RSEexchangeDescriptor.getRseStocks().getRseStock()) {
             Stock stockToAdd = new Stock(stock.getRseCompanyName(), stock.getRseSymbol(), stock.getRsePrice());
+            StockCheck(allStocksInOurDataStructures,stockToAdd);//if the stock isn't valid an exaption wiil be thrown
             allStocksInOurDataStructures.getStockList().add(stockToAdd);
         }
         System.out.println(allStocksInOurDataStructures.getStockList().toString());
+
+
+    }
+
+    private static void FileNameCheck(String fileName) throws Exception {
+        String fileFormat=".xml";
+        int stringLen=fileName.length();
+
+        if(!fileName.subSequence(stringLen-4,stringLen-1).equals(fileFormat))
+            throw new Exception("Incorrect file format.");
+    }
+
+    private static void StockCheck(ConcreteEngine engine,Stock stockToCheck) throws Exception
+    {/*
+        SYMBOL-
+        1.English letter only.                      V
+        2. not empty                                V
+        3. no space                                 V
+        4. in upper case                            V
+        COMPANY NAME-
+        1.
+        PRICE-                                      V
+        1.possitive number IN stock CTOR            V
+        GENERAL-                                    V
+        1.for each company name only one symbol     V
+         */
+        if(stockToCheck.getSymbol().length()==0)
+            throw new Exception("The symbol of "+stockToCheck.getName()+" is an empty string");
+        else for (char c:stockToCheck.getSymbol()) {
+            if(!(((c>='A')&&(c<='Z'))||(((c>='a')&&(c<='z')))))
+                throw new Exception("There is a non-letter char in the symbol of "+stockToCheck.getName());
+        }
+        if(!(stockToCheck.getSymbol().compareTo(stockToCheck.getSymbol().toUpperCase()))){
+            throw new Exception("The symbol isnwt in uppercase");
+        }
+        if(stockToCheck.getM_StockPrice()<=0)
+        {
+            throw new Exception("the stock price is a non possitive number.");
+        }
+        //GENERAL
+        Stock stockWithTheSameName=findStockByName(stockToCheck.getName(),engine);
+        if(stockWithTheSameName!=null)
+        {//there is a stock with the same name
+            //need to check the symbol
+            if(!(stockToCheck.getSymbol().compareTo(stockWithTheSameName.getSymbol())))
+            {
+                throw new Exception("The company "+stockToCheck.getName()+" already exists with different symbol");
+            }
+        }
+    }
+
+    public static Stock findStockByName(String stockName,ConcreteEngine engine)
+    {
+        for (Stock stock: engine.getStockList()) {
+            if(stockName.compareTo(stock.getName()))
+                return stock;
+        }
+        return null;
     }
 
     public void ShowAllStocks() {
