@@ -15,13 +15,13 @@ public class Client {
 
     private final static String JAXB_XML_GAME_PACKAGE_NAME = "Generated";
 
-    public static void ReadingANewFile(String i_FileNameToReadFrom) throws FileNotFoundException, JAXBException {
+   public static void ReadingANewFile(String i_FileNameToReadFrom) throws FileNotFoundException, JAXBException {
         /**the UI checks the FILE NAME**/
         /*
          * Need to read the XML     V
          * Validation on Data
          * Copy all the data        V
-         * */
+         */
 
         System.out.println("From File to Object");
         File file=new File(i_FileNameToReadFrom);

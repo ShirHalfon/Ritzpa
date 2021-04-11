@@ -14,7 +14,7 @@ import java.io.FileNotFoundException;
 public class Program {
 
     public static void main(String[] args) {
-    String fileName= new String ("Engine/src/Sources/ex1-small.xml");
+  String fileName= new String ("Engine/src/Sources/ex1-small.xml");
     try {
         Client.ReadingANewFile(fileName);
     } catch (FileNotFoundException e) {
@@ -25,14 +25,14 @@ public class Program {
 
     System.out.println("all is good");
 
-/*    ConcreteEngine newEngine = new ConcreteEngine();
-    Stock stock1 = new Stock("Google", "GoGl");
-    Stock stock2 = new Stock("Microsoft", "MCRSFT");
+   /*ConcreteEngine newEngine = new ConcreteEngine();
+    Stock stock1 = new Stock("Google", "GoGl", 50);
+    Stock stock2 = new Stock("Microsoft", "MCRSFT", 60);
 
 
-    Deal newDeal = new Deal(1, 90, 20);
-    Deal newDeal1 = new Deal(1, 90, 20);
-    Deal newDeal2 = new Deal(1, 90, 20);
+    Deal newDeal = new Deal(90, 20);
+    Deal newDeal1 = new Deal( 90, 20);
+    Deal newDeal2 = new Deal(90, 20);
     Order newOrder3 = new Order(70, 30, OrderType.LMT, OrderDirection.BUYING);
     Order newOrder4 = new Order(90, 10, OrderType.LMT, OrderDirection.BUYING);
     Order newOrder5 = new Order(110, 20, OrderType.LMT, OrderDirection.SELLING);
@@ -45,9 +45,9 @@ public class Program {
     stock1.getM_DealsList().add(newDeal1);
     stock1.getM_DealsList().add(newDeal2);
 
-    Deal newDeal3 = new Deal(1, 90, 20);
-    Deal newDeal4 = new Deal(1, 90, 20);
-    Deal newDeal5 = new Deal(1, 90, 20);
+    Deal newDeal3 = new Deal(90, 20);
+    Deal newDeal4 = new Deal(90, 20);
+    Deal newDeal5 = new Deal(90, 20);
     Order newOrder = new Order(90, 1, OrderType.LMT, OrderDirection.BUYING);
     Order newOrder7 = new Order(80, 10, OrderType.LMT, OrderDirection.BUYING);
     Order newOrder1 = new Order(110, 20, OrderType.LMT, OrderDirection.SELLING);
@@ -66,8 +66,10 @@ public class Program {
     //System.out.println(newEngine.m_Stocks.toString());
     //System.out.println(newDeal.toString());
     //System.out.println(newOrder.toString());
-    System.out.println(stock1);
-    System.out.println(stock2);
+    //System.out.println(stock1);
+    //System.out.println(stock2);
+     stock1.toString();
 */
+
     }
 }
