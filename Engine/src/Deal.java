@@ -12,10 +12,10 @@ public class Deal {
     private int amount;
     private String date;
 
-    public Deal(int m_Price, int m_Amount) {
-        this.cycle = 0;
-        this.price = m_Price;
-        this.amount = m_Amount;
+    public Deal(int price, int amount) {
+        this.cycle = price*amount;
+        this.price = price;
+        this.amount = amount;
         this.date = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss:SSS").format(LocalDateTime.now());
     }
 

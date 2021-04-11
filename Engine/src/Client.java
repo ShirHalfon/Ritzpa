@@ -14,6 +14,7 @@ import java.util.Iterator;
 public class Client {
 //some changes
     private final static String JAXB_XML_GAME_PACKAGE_NAME = "Generated";
+
     public static void ReadingANewFile(String i_FileNameToReadFrom,ConcreteEngine allStocksInOurDataStructures) throws Exception {
         /**the UI checks the FILE NAME**/
         /*

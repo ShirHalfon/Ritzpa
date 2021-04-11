@@ -13,7 +13,7 @@ public class Order {
     public Order(int m_Price, int m_Amount, OrderType m_Type, OrderDirection m_Direction) {
         this.price = m_Price;
         this.amount = m_Amount;
-        this.date = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss:SSS").format(LocalDateTime.now());
+        this.date = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss:SSS").format(LocalDateTime.now());
         this.type = m_Type;
         this.direction = m_Direction;
     }

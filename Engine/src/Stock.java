@@ -68,4 +68,32 @@ public class Stock {
         this.sellingOrders = sellingOrders;
     }
 
+    public void findPlaceToInsertBuyingOrder(Order buyingORderToAdd)
+    {
+        int i=0;
+        boolean isAded=false;
+
+        for (Order order:this.sellingOrders) {
+            if(!isAded) {
+                if (order.getPrice() < buyingORderToAdd.getPrice())
+                    isAded=true;
+                ++i;
+            }
+        }
+        this.buyingOrders.add(i, buyingORderToAdd);
+    }
+
+    public void findPlaceToInsertSellingOrder(Order sellingORderToAdd)
+    {
+        int i=0;
+        boolean isAded=false;
+        for (Order order:this.sellingOrders){
+            if(!isAded) {
+                if (order.getPrice() > sellingORderToAdd.getPrice())
+                    isAded=true;
+                ++i;
+            }
+        }
+        this.sellingOrders.add(i, sellingORderToAdd);
+    }
 }
