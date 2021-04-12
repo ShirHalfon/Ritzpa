@@ -16,7 +16,7 @@ public class Deal {
         this.cycle = price*amount;
         this.price = price;
         this.amount = amount;
-        this.date = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss:SSS").format(LocalDateTime.now());
+        this.date = DateTimeFormatter.ofPattern("HH:mm:ss:SSS").format(LocalDateTime.now());
     }
 
     public int getCycle() {

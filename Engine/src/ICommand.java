@@ -1,4 +1,5 @@
 public interface ICommand {
 
-    public void execute();
+    public void execute(IInputObject inputObject) throws Exception;
+
 }
