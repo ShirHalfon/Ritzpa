@@ -104,7 +104,7 @@ public class SingleStockPlan implements DTOPlan{
             stringToBuild.append(newOrder.toString());
             i++;
         }
-        this.dealsList = stringToBuild.toString();
+        this.sellingOrdersList = stringToBuild.toString();
     }
 
     public void setBuyingOrdersList(ArrayList<Order> buyingOrdersList) {
@@ -117,11 +117,15 @@ public class SingleStockPlan implements DTOPlan{
             stringToBuild.append(newOrder.toString());
             i++;
         }
-        this.dealsList = stringToBuild.toString();
+        this.buyingOrdersList = stringToBuild.toString();
     }
 
     @Override
     public String toString() {
-        return "Stock:\n" + symbol + companyName +  price + sumDeals + sumCycle + dealsList + stockToExtractData;
+        return "Stock:\n" + symbol + companyName +  price + sumDeals + sumCycle + dealsList;
+    }
+
+    public String listsToString() {
+        return symbol + dealsList + sellingOrdersList + buyingOrdersList;
     }
 }

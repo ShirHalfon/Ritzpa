@@ -16,8 +16,9 @@ public class Program {
     public static void main(String[] args) {
     String fileName= new String ("Engine/src/Sources/ex1-small.xml");
     ConcreteEngine engine=new ConcreteEngine();
+    IInputObject inputObject = new ReadingANewFileInputObejct(fileName, engine);
     try {
-    Client.ReadingANewFile(fileName,engine);
+    Client.ReadingANewFile(inputObject);
     } catch (FileNotFoundException e) {
         e.printStackTrace();
     } catch (JAXBException e) {

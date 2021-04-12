@@ -39,6 +39,6 @@ public class OrderPlan implements DTOPlan{
 
     @Override
     public String toString() {
-        return "Order:\n" + price + amount + date + cycle + order;
+        return "Order:\n" + price + amount + date + cycle;
     }
 }

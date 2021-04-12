@@ -16,7 +16,7 @@ public class Client {
 //some changes
     private final static String JAXB_XML_GAME_PACKAGE_NAME = "Generated";
 
-    public static void ReadingANewFile(String i_FileNameToReadFrom,ConcreteEngine allStocksInOurDataStructures) throws Exception {
+    public static void ReadingANewFile(IInputObject inputObject) throws Exception {
         /**the UI checks the FILE NAME
          * This shoule not be STATIC!!!**/
         /*
@@ -27,16 +27,16 @@ public class Client {
         DTOBuilder builder;
         DTOPlan plan;
         System.out.println("From File to Object");
-        FileNameCheck(i_FileNameToReadFrom);
-        File file=new File(i_FileNameToReadFrom);
-        InputStream inputStream = new FileInputStream(i_FileNameToReadFrom);
+        FileNameCheck(((ReadingANewFileInputObejct)inputObject).i_FileNameToReadFrom);
+        File file=new File(((ReadingANewFileInputObejct)inputObject).i_FileNameToReadFrom);
+        InputStream inputStream = new FileInputStream(((ReadingANewFileInputObejct)inputObject).i_FileNameToReadFrom);
         JAXBContext jaxbContext = JAXBContext.newInstance(JAXB_XML_GAME_PACKAGE_NAME);
         Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
         RizpaStockExchangeDescriptor RSEexchangeDescriptor = (RizpaStockExchangeDescriptor) unmarshaller.unmarshal(file);
         for (RseStock stock : RSEexchangeDescriptor.getRseStocks().getRseStock()) {
             Stock stockToAdd = new Stock(stock.getRseCompanyName(), stock.getRseSymbol(), stock.getRsePrice());
-            StockCheck(allStocksInOurDataStructures,stockToAdd);//if the stock isn't valid an exaption wiil be thrown
-            allStocksInOurDataStructures.getStockList().add(stockToAdd);
+            StockCheck(((ReadingANewFileInputObejct)inputObject).allStocksInOurDataStructures,stockToAdd);//if the stock isn't valid an exaption wiil be thrown
+            ((ReadingANewFileInputObejct)inputObject).allStocksInOurDataStructures.getStockList().add(stockToAdd);
         }
 
     }
@@ -96,7 +96,7 @@ public class Client {
         return null;
     }
 
-    public void ShowAllStocks(ArrayList<Stock> stocks, DTOBuilder builderToInit, DTOPlan planToInit) throws Exception{
+    public void ShowAllStocks(IInputObject inputObject) throws Exception{
         /**EACH SHOW ISN'T REALLY SHOW - RETURN AN OBJECT THAT WILL BE SHOWN IN THE UI NO PRINTS FROM HERE (USE BUILDER)
          **/
         /*
@@ -109,15 +109,17 @@ public class Client {
          * Note: This can't be chosen without a file in database
          * */
         try {
-            builderToInit = new StockListBuilder();
-            planToInit = builderToInit.getDTO(stocks);
-        }
+            ((ShowListsFromAllStocksInputObject)inputObject).builderToInit = new StockListBuilder();
+            ((ShowListsFromAllStocksInputObject)inputObject).planToInit =
+                    ((ShowListsFromAllStocksInputObject)inputObject).builderToInit
+                    .getDTO(((ShowListsFromAllStocksInputObject)inputObject).stocks);
+            }
         catch (Exception exception) {
             throw exception;
         }
     }
 
-    public void ShowSingleStock(Stock stockToShow, DTOBuilder builderToInit, DTOPlan planToInit) {
+    public void ShowSingleStock(IInputObject inputObject) {
         /**EACH SHOW ISN'T REALLY SHOW - RETURN AN OBJECT THAT WILL BE SHOWN IN THE UI NO PRINTS FROM HERE (USE BUILDER)
          **/
         /*
@@ -136,15 +138,16 @@ public class Client {
          *          - Total worth
          * */
         try {
-            builderToInit = new SingleStockBuilder();
-            planToInit = builderToInit.getDTO(stockToShow);
+            ((SingleStockInputObject)inputObject).builderToInit = new SingleStockBuilder();
+            ((SingleStockInputObject)inputObject).planToInit = ((SingleStockInputObject)inputObject)
+                    .builderToInit.getDTO(((SingleStockInputObject)inputObject).stockToShow);
         }
         catch (Exception exception) {
             throw exception;
         }
     }
 
-    public void OrderAction() {
+    public void OrderAction(IInputObject inputObject) {
         /**EACH SHOW ISN'T REALLY SHOW - RETURN AN OBJECT THAT WILL BE SHOWN IN THE UI NO PRINTS FROM HERE (USE BUILDER)
          **/
         /*
@@ -175,7 +178,7 @@ public class Client {
         */
     }
 
-    public void ShowOrdersForAllStocks(ArrayList<Stock> stocks, DTOBuilder builderToInit, DTOPlan planToInit) throws Exception {
+    public void ShowOrdersForAllStocks(IInputObject inputObject) throws Exception {
 
         /**EACH SHOW ISN'T REALLY SHOW - RETURN AN OBJECT THAT WILL BE SHOWN IN THE UI NO PRINTS FROM HERE (USE BUILDER)
          **/
@@ -192,20 +195,24 @@ public class Client {
          * 3. Sum of the Cycle for each list
          * */
         try {
-            builderToInit = new OrdersListBuilder();
-            planToInit = builderToInit.getDTO(stocks);
+            ((ShowListsFromAllStocksInputObject)inputObject).builderToInit = new OrdersListBuilder();
+            ((ShowListsFromAllStocksInputObject)inputObject).planToInit =
+                    ((ShowListsFromAllStocksInputObject)inputObject).builderToInit
+                    .getDTO(((ShowListsFromAllStocksInputObject)inputObject).stocks);
         }
         catch (Exception exception) {
             throw exception;
         }
     }
 
-    public void Exit() {
+    public void Exit(IInputObject inputObject) {
 
         /*
          * Exit the system
          * If we can make it - add the option to save the system's status - using serialization
          * If we save then we need to add loading the status if it exists
          * */
+
+        System.exit(0);
     }
 }
