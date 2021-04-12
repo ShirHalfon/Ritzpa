@@ -14,9 +14,9 @@ import java.util.Iterator;
 
 public class Client {
 //some changes
-    private final static String JAXB_XML_GAME_PACKAGE_NAME = "Generated";
+    private final String JAXB_XML_GAME_PACKAGE_NAME = "Generated";
 
-    public static void ReadingANewFile(IInputObject inputObject) throws Exception {
+    public void ReadingANewFile(IInputObject inputObject) throws Exception {
         /**the UI checks the FILE NAME
          * This shoule not be STATIC!!!**/
         /*
@@ -41,14 +41,14 @@ public class Client {
 
     }
 
-    private static void FileNameCheck(String fileName) throws Exception {
+    private void FileNameCheck(String fileName) throws Exception {
         String fileFormat=".xml";
         int stringLen=fileName.length();
         if(fileName.substring(stringLen-4,stringLen).compareTo(fileFormat)!=0)
             throw new Exception("Incorrect file format.");
     }
 
-    private static void StockCheck(ConcreteEngine engine,Stock stockToCheck) throws Exception
+    private void StockCheck(ConcreteEngine engine,Stock stockToCheck) throws Exception
     {/*
         SYMBOL-
         1.English letter only.                      V
@@ -147,19 +147,17 @@ public class Client {
         }
     }
 
-    public void OrderAction(IInputObject inputObject) {
-        /**EACH SHOW ISN'T REALLY SHOW - RETURN AN OBJECT THAT WILL BE SHOWN IN THE UI NO PRINTS FROM HERE (USE BUILDER)
-         **/
-        /*
-         * 1. Input:
+    public void OrderAction(IInputObject inputObject) throws Exception {
+        /**EACH SHOW ISN'T REALLY SHOW - RETURN AN OBJECT THAT WILL BE SHOWN IN THE UI NO PRINTS FROM HERE (USE BUILDER)**/
+        /* 1. Input:
          *       a. Type (sell/buy)
          *       b. Symbol (can be in any case, use ignorecase method)
          *       c. Amount
          *       d. Limit - Notice the restrictions in the spec
          * 2. Validations:
-         *       a. Symbol - does it exist
-         *       b. Amount > 0
-         * 3. Add to Order a timestamp
+         *       a. Symbol - does it exist                                  V
+         *       b. Amount > 0                                              V
+         * 3. Add to Order a timestamp                                      V
          * 4. Activate action
          *       a. Selling will be encountered with Buying orders
          *       b. Buying will be encountered with Selling orders
@@ -167,15 +165,31 @@ public class Client {
          * implement it
          * */
 
-        /*getting a new order.
-        need to check if buy or cell
-        when found-->new sale,remove the correct order from the list.
-        new deal sort by date.
+        Boolean isOrderComplete = false;
+        //Validations
+        Stock stockToCommitOrderOn = ((OrderActionInputObject)inputObject).engine
+                .findStockBySymbol(((OrderActionInputObject)inputObject).orderToCommit.getSymbol());
+        if (stockToCommitOrderOn == null) {
+            throw new Exception("The is no stock with the Symbol " +
+                    ((OrderActionInputObject)inputObject).orderToCommit.getSymbol());
+        }
+        if (((OrderActionInputObject)inputObject).orderToCommit.getAmount() <= 0) {
+            throw new Exception("The amount of the stock is 0");
+        }
+        if (((OrderActionInputObject)inputObject).orderToCommit.getDirection() == OrderDirection.BUYING) {
+            //LMT is the max to spend
+            //meet with SEELING orders
+            ((OrderActionInputObject)inputObject).engine
+                    .BuyingAction(((OrderActionInputObject)inputObject).orderToCommit,
+                            isOrderComplete, stockToCommitOrderOn);
+        } else {
+            //LMT is the min price
+            //meet with BUYING orders
+            ((OrderActionInputObject)inputObject).engine
+                    .SellingAction(((OrderActionInputObject)inputObject).orderToCommit,
+                            isOrderComplete, stockToCommitOrderOn);
 
-        if the only one that can go, matches partly
-
-        matches partly
-        */
+        }
     }
 
     public void ShowOrdersForAllStocks(IInputObject inputObject) throws Exception {

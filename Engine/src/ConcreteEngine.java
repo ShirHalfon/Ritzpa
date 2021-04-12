@@ -27,45 +27,6 @@ public class ConcreteEngine {
         return null;
     }
 
-    public void OrderAction(Order orderToCommit, ConcreteEngine engine) throws Exception {
-        /**EACH SHOW ISN'T REALLY SHOW - RETURN AN OBJECT THAT WILL BE SHOWN IN THE UI NO PRINTS FROM HERE (USE BUILDER)**/
-        /* 1. Input:
-         *       a. Type (sell/buy)
-         *       b. Symbol (can be in any case, use ignorecase method)
-         *       c. Amount
-         *       d. Limit - Notice the restrictions in the spec
-         * 2. Validations:
-         *       a. Symbol - does it exist                                  V
-         *       b. Amount > 0                                              V
-         * 3. Add to Order a timestamp                                      V
-         * 4. Activate action
-         *       a. Selling will be encountered with Buying orders
-         *       b. Buying will be encountered with Selling orders
-         * Note: note all the specifications - This is the heart of the exercise - Think of how and where to actually
-         * implement it
-         * */
-
-        Boolean isOrderComplete = false;
-        //Validations
-        Stock stockToCommitOrderOn = findStockBySymbol(orderToCommit.getSymbol());
-        if (stockToCommitOrderOn == null) {
-            throw new Exception("The is no stock with the Symbol " + orderToCommit.getSymbol());
-        }
-        if (orderToCommit.getAmount() <= 0) {
-            throw new Exception("The amount of the stock is 0");
-        }
-        if (orderToCommit.getDirection() == OrderDirection.BUYING) {
-            //LMT is the max to spend
-            //meet with SEELING orders
-            BuyingAction(orderToCommit, isOrderComplete, stockToCommitOrderOn);
-        } else {
-            //LMT is the min price
-            //meet with BUYING orders
-            SellingAction(orderToCommit, isOrderComplete, stockToCommitOrderOn);
-
-        }
-    }
-
     public void BuyingAction(Order buyingOrder, Boolean isOrderComplete, Stock stockToCommitOrderOn) {
 
         for(Iterator<Order> iter=stockToCommitOrderOn.getSellingOrders().iterator();iter.hasNext();){

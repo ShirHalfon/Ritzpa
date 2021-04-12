@@ -17,8 +17,9 @@ public class Program {
     String fileName= "Engine/src/Sources/ex1-small.xml";
     ConcreteEngine engine=new ConcreteEngine();
     IInputObject inputObject = new ReadingANewFileInputObejct(fileName, engine);
+    Client client= new Client();
     try {
-    Client.ReadingANewFile(inputObject);
+    client.ReadingANewFile(inputObject);
     } catch (FileNotFoundException e) {
         e.printStackTrace();
     } catch (JAXBException e) {
@@ -42,48 +43,63 @@ public class Program {
         Order order13=new Order(90,12,OrderType.LMT,OrderDirection.SELLING,symbol);
         Order order14=new Order(85,13,OrderType.LMT,OrderDirection.SELLING,symbol);
 
+        OrderActionInputObject inputObject1=new OrderActionInputObject(order1, engine);
+        OrderActionInputObject inputObject2=new OrderActionInputObject(order2, engine);
+        OrderActionInputObject inputObject3=new OrderActionInputObject(order3, engine);
+        OrderActionInputObject inputObject4=new OrderActionInputObject(order4, engine);
+        OrderActionInputObject inputObject5=new OrderActionInputObject(order5, engine);
+        OrderActionInputObject inputObject6=new OrderActionInputObject(order6, engine);
+        OrderActionInputObject inputObject7=new OrderActionInputObject(order7, engine);
+        OrderActionInputObject inputObject8=new OrderActionInputObject(order8, engine);
+        OrderActionInputObject inputObject9=new OrderActionInputObject(order9, engine);
+        OrderActionInputObject inputObject10=new OrderActionInputObject(order10, engine);
+        OrderActionInputObject inputObject11=new OrderActionInputObject(order11, engine);
+        OrderActionInputObject inputObject12=new OrderActionInputObject(order12, engine);
+        OrderActionInputObject inputObject13=new OrderActionInputObject(order13, engine);
+        OrderActionInputObject inputObject14=new OrderActionInputObject(order14, engine);
+
+
         try {
-            engine.OrderAction(order1,engine);
+            client.OrderAction(inputObject1);
             System.out.println("1");
             System.out.println("*************************************");
-
-            engine.OrderAction(order2,engine);
+            client.OrderAction(inputObject2);
             System.out.println("2");
             System.out.println("*************************************");
-            engine.OrderAction(order3,engine);//insert in wrong place
+            client.OrderAction(inputObject3);
             System.out.println("3");
             System.out.println("*************************************");
-            engine.OrderAction(order4,engine);
+            client.OrderAction(inputObject4);
             System.out.println("4");
             System.out.println("*************************************");
-            engine.OrderAction(order5,engine);
+            client.OrderAction(inputObject5);
             System.out.println("5");
             System.out.println("*************************************");
-            engine.OrderAction(order6,engine);
+            client.OrderAction(inputObject6);
             System.out.println("6");
             System.out.println("*************************************");
-            engine.OrderAction(order7,engine);
+            client.OrderAction(inputObject7);
             System.out.println("7");
             System.out.println("*************************************");
-            engine.OrderAction(order8,engine);
+            client.OrderAction(inputObject8);
             System.out.println("8");
             System.out.println("*************************************");
-            engine.OrderAction(order9,engine);
+            client.OrderAction(inputObject9);
             System.out.println("9");
             System.out.println("*************************************");
-            engine.OrderAction(order10,engine);
+            client.OrderAction(inputObject10);
             System.out.println("10");
             System.out.println("*************************************");
-            engine.OrderAction(order11,engine);
+            client.OrderAction(inputObject11);
             System.out.println("11");
             System.out.println("*************************************");
-            engine.OrderAction(order12,engine);
+            client.OrderAction(inputObject12);
             System.out.println("12");
             System.out.println("*************************************");
-            engine.OrderAction(order13,engine);
+            client.OrderAction(inputObject13);
             System.out.println("13");
             System.out.println("*************************************");
-            engine.OrderAction(order14,engine);
+            client.OrderAction(inputObject14);
             System.out.println("14");
             System.out.println("*************************************");
 
