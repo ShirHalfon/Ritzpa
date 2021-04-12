@@ -128,5 +128,6 @@ public class ConcreteEngine {
                 stockToCommitOrderOn.findPlaceToInsertSellingOrder(sellingOrder);
             }
         }
+
     }
 }

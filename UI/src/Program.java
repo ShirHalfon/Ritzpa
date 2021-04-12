@@ -25,8 +25,23 @@ public class Program {
     } catch (Exception e) {
         e.printStackTrace();
     }
+        String symbol="GOOGL";
+        Order order1=new Order(100,20,OrderType.LMT,OrderDirection.SELLING,symbol);
+        Order order2=new Order(110,10,OrderType.LMT,OrderDirection.SELLING,symbol);
+        Order order3=new Order(90,10,OrderType.LMT,OrderDirection.SELLING,symbol);
+        Order order4=new Order(90,10,OrderType.LMT,OrderDirection.BUYING,symbol);
+        Order order5=new Order(120,25,OrderType.LMT,OrderDirection.BUYING,symbol);
+        Order order6=new Order(90,30,OrderType.LMT,OrderDirection.BUYING,symbol);
+        Order order7=new Order(80,20,OrderType.LMT,OrderDirection.BUYING,symbol);
+        Order order8=new Order(100,10,OrderType.LMT,OrderDirection.BUYING,symbol);
+        Order order9=new Order(90,5,OrderType.LMT,OrderDirection.BUYING,symbol);
+        Order order10=new Order(90,5,OrderType.LMT,OrderDirection.SELLING,symbol);
+        Order order11=new Order(95,25,OrderType.LMT,OrderDirection.SELLING,symbol);
+        Order order12=new Order(90,20,OrderType.LMT,OrderDirection.SELLING,symbol);
+        Order order13=new Order(90,12,OrderType.LMT,OrderDirection.SELLING,symbol);
+        Order order14=new Order(85,13,OrderType.LMT,OrderDirection.SELLING,symbol);
 
-    System.out.println("all is good");
+        System.out.println("all is good");
 
    /*ConcreteEngine newEngine = new ConcreteEngine();
     Stock stock1 = new Stock("Google", "GoGl", 50);

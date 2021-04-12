@@ -10,12 +10,13 @@ public class Order {
     private OrderDirection direction;
     private String symbol;
 
-    public Order(int m_Price, int m_Amount, OrderType m_Type, OrderDirection m_Direction) {
+    public Order(int m_Price, int m_Amount, OrderType m_Type, OrderDirection m_Direction, String symbol) {
         this.price = m_Price;
         this.amount = m_Amount;
         this.date = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss:SSS").format(LocalDateTime.now());
         this.type = m_Type;
         this.direction = m_Direction;
+        this.symbol=symbol;
     }
 
     public String getSymbol() {
