@@ -30,7 +30,7 @@ public class OrderPlan implements DTOPlan{
     }
 
     public void setDate(String date) {
-        this.date = date;
+        this.date = "- Date: " + date + "\n";
     }
 
     public void setCycle(int cycle) {
@@ -39,6 +39,6 @@ public class OrderPlan implements DTOPlan{
 
     @Override
     public String toString() {
-        return "Order:\n" + price + amount + date + cycle + order;
+        return "Order:\n" + price + amount + date + cycle;
     }
 }

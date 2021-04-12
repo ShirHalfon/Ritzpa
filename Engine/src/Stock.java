@@ -73,7 +73,7 @@ public class Stock {
         int i=0;
         boolean isAded=false;
 
-        for (Order order:this.sellingOrders) {
+        for (Order order:this.buyingOrders) {
             if(!isAded) {
                 if (order.getPrice() < buyingORderToAdd.getPrice())
                     isAded=true;

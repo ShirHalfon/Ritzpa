@@ -14,7 +14,7 @@ import java.io.FileNotFoundException;
 public class Program {
 
     public static void main(String[] args) {
-    String fileName= new String ("Engine/src/Sources/ex1-small.xml");
+    String fileName= "Engine/src/Sources/ex1-small.xml";
     ConcreteEngine engine=new ConcreteEngine();
     try {
     Client.ReadingANewFile(fileName,engine);
@@ -41,7 +41,27 @@ public class Program {
         Order order13=new Order(90,12,OrderType.LMT,OrderDirection.SELLING,symbol);
         Order order14=new Order(85,13,OrderType.LMT,OrderDirection.SELLING,symbol);
 
-        System.out.println("all is good");
+        try {
+            engine.OrderAction(order1,engine);
+            engine.OrderAction(order2,engine);
+            engine.OrderAction(order3,engine);
+            engine.OrderAction(order4,engine);
+            engine.OrderAction(order5,engine);
+            engine.OrderAction(order6,engine);
+            engine.OrderAction(order7,engine);
+            engine.OrderAction(order8,engine);
+            engine.OrderAction(order9,engine);
+            engine.OrderAction(order10,engine);
+            engine.OrderAction(order11,engine);
+            engine.OrderAction(order12,engine);
+            engine.OrderAction(order13,engine);
+            engine.OrderAction(order14,engine);
+
+            System.out.println("all is good");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
    /*ConcreteEngine newEngine = new ConcreteEngine();
     Stock stock1 = new Stock("Google", "GoGl", 50);
