@@ -4,7 +4,7 @@
 *import com.sun.xml.internal.ws.api.pipe.Engine.*;
 */
 /*import com.sun.security.ntlm.Client;*/
-import com.sun.xml.internal.ws.api.pipe.Engine;
+ import com.sun.xml.internal.ws.api.pipe.Engine;
 
 import javax.xml.bind.JAXBException;
 import java.io.File;
@@ -43,19 +43,48 @@ public class Program {
 
         try {
             engine.OrderAction(order1,engine);
+            System.out.println("1");
+            System.out.println("*************************************");
+
             engine.OrderAction(order2,engine);
-            engine.OrderAction(order3,engine);
+            System.out.println("2");
+            System.out.println("*************************************");
+            engine.OrderAction(order3,engine);//insert in wrong place
+            System.out.println("3");
+            System.out.println("*************************************");
             engine.OrderAction(order4,engine);
+            System.out.println("4");
+            System.out.println("*************************************");
             engine.OrderAction(order5,engine);
+            System.out.println("5");
+            System.out.println("*************************************");
             engine.OrderAction(order6,engine);
+            System.out.println("6");
+            System.out.println("*************************************");
             engine.OrderAction(order7,engine);
+            System.out.println("7");
+            System.out.println("*************************************");
             engine.OrderAction(order8,engine);
+            System.out.println("8");
+            System.out.println("*************************************");
             engine.OrderAction(order9,engine);
+            System.out.println("9");
+            System.out.println("*************************************");
             engine.OrderAction(order10,engine);
+            System.out.println("10");
+            System.out.println("*************************************");
             engine.OrderAction(order11,engine);
+            System.out.println("11");
+            System.out.println("*************************************");
             engine.OrderAction(order12,engine);
+            System.out.println("12");
+            System.out.println("*************************************");
             engine.OrderAction(order13,engine);
+            System.out.println("13");
+            System.out.println("*************************************");
             engine.OrderAction(order14,engine);
+            System.out.println("14");
+            System.out.println("*************************************");
 
             System.out.println("all is good");
 
