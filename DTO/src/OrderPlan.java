@@ -30,7 +30,7 @@ public class OrderPlan implements DTOPlan{
     }
 
     public void setDate(String date) {
-        this.date = date;
+        this.date = "- Date: " + date + "\n";
     }
 
     public void setCycle(int cycle) {

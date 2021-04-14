@@ -4,7 +4,7 @@
 *import com.sun.xml.internal.ws.api.pipe.Engine.*;
 */
 /*import com.sun.security.ntlm.Client;*/
-import com.sun.xml.internal.ws.api.pipe.Engine;
+ import com.sun.xml.internal.ws.api.pipe.Engine;
 
 import javax.xml.bind.JAXBException;
 import java.io.File;
@@ -14,11 +14,12 @@ import java.io.FileNotFoundException;
 public class Program {
 
     public static void main(String[] args) {
-    String fileName= new String ("Engine/src/Sources/ex1-small.xml");
+    String fileName= "Engine/src/Sources/ex1-small.xml";
     ConcreteEngine engine=new ConcreteEngine();
     IInputObject inputObject = new ReadingANewFileInputObejct(fileName, engine);
+    Client client= new Client();
     try {
-    Client.ReadingANewFile(inputObject);
+    client.ReadingANewFile(inputObject);
     } catch (FileNotFoundException e) {
         e.printStackTrace();
     } catch (JAXBException e) {
@@ -42,7 +43,71 @@ public class Program {
         Order order13=new Order(90,12,OrderType.LMT,OrderDirection.SELLING,symbol);
         Order order14=new Order(85,13,OrderType.LMT,OrderDirection.SELLING,symbol);
 
-        System.out.println("all is good");
+        OrderActionInputObject inputObject1=new OrderActionInputObject(order1, engine);
+        OrderActionInputObject inputObject2=new OrderActionInputObject(order2, engine);
+        OrderActionInputObject inputObject3=new OrderActionInputObject(order3, engine);
+        OrderActionInputObject inputObject4=new OrderActionInputObject(order4, engine);
+        OrderActionInputObject inputObject5=new OrderActionInputObject(order5, engine);
+        OrderActionInputObject inputObject6=new OrderActionInputObject(order6, engine);
+        OrderActionInputObject inputObject7=new OrderActionInputObject(order7, engine);
+        OrderActionInputObject inputObject8=new OrderActionInputObject(order8, engine);
+        OrderActionInputObject inputObject9=new OrderActionInputObject(order9, engine);
+        OrderActionInputObject inputObject10=new OrderActionInputObject(order10, engine);
+        OrderActionInputObject inputObject11=new OrderActionInputObject(order11, engine);
+        OrderActionInputObject inputObject12=new OrderActionInputObject(order12, engine);
+        OrderActionInputObject inputObject13=new OrderActionInputObject(order13, engine);
+        OrderActionInputObject inputObject14=new OrderActionInputObject(order14, engine);
+
+
+        try {
+            client.OrderAction(inputObject1);
+            System.out.println("1");
+            System.out.println("*************************************");
+            client.OrderAction(inputObject2);
+            System.out.println("2");
+            System.out.println("*************************************");
+            client.OrderAction(inputObject3);
+            System.out.println("3");
+            System.out.println("*************************************");
+            client.OrderAction(inputObject4);
+            System.out.println("4");
+            System.out.println("*************************************");
+            client.OrderAction(inputObject5);
+            System.out.println("5");
+            System.out.println("*************************************");
+            client.OrderAction(inputObject6);
+            System.out.println("6");
+            System.out.println("*************************************");
+            client.OrderAction(inputObject7);
+            System.out.println("7");
+            System.out.println("*************************************");
+            client.OrderAction(inputObject8);
+            System.out.println("8");
+            System.out.println("*************************************");
+            client.OrderAction(inputObject9);
+            System.out.println("9");
+            System.out.println("*************************************");
+            client.OrderAction(inputObject10);
+            System.out.println("10");
+            System.out.println("*************************************");
+            client.OrderAction(inputObject11);
+            System.out.println("11");
+            System.out.println("*************************************");
+            client.OrderAction(inputObject12);
+            System.out.println("12");
+            System.out.println("*************************************");
+            client.OrderAction(inputObject13);
+            System.out.println("13");
+            System.out.println("*************************************");
+            client.OrderAction(inputObject14);
+            System.out.println("14");
+            System.out.println("*************************************");
+
+            System.out.println("all is good");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
    /*ConcreteEngine newEngine = new ConcreteEngine();
     Stock stock1 = new Stock("Google", "GoGl", 50);

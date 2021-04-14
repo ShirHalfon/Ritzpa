@@ -124,8 +124,4 @@ public class SingleStockPlan implements DTOPlan{
     public String toString() {
         return "Stock:\n" + symbol + companyName +  price + sumDeals + sumCycle + dealsList;
     }
-
-    public String listsToString() {
-        return symbol + dealsList + sellingOrdersList + buyingOrdersList;
-    }
 }
