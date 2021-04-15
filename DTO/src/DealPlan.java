@@ -1,4 +1,4 @@
-public class DealPlan implements DTOPlan{
+public class DealPlan implements IDTOPlan {
 
     private String cycle;
     private String price;

@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class SingleStockPlan implements DTOPlan{
+public class SingleStockPlan implements IDTOPlan {
 
     private String symbol;
     private String companyName;

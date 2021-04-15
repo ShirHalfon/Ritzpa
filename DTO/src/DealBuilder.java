@@ -1,7 +1,7 @@
-public class DealBuilder implements DTOBuilder{
+public class DealBuilder implements IDTOBuilder {
 
     @Override
-    public DTOPlan getDTO(Object object) {
+    public IDTOPlan getDTO(Object object) {
         return new DealPlan((Deal) object);
     }
 }

@@ -1,7 +1,7 @@
-public class SingleStockBuilder implements DTOBuilder{
+public class SingleStockBuilder implements IDTOBuilder {
 
     @Override
-    public DTOPlan getDTO(Object object) {
+    public IDTOPlan getDTO(Object object) {
         return new SingleStockPlan( (Stock) object);
     }
 }

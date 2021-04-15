@@ -1,10 +1,10 @@
 public class SingleStockInputObject implements IInputObject{
 
     public Stock stockToShow;
-    public DTOBuilder builderToInit;
-    public DTOPlan planToInit;
+    public IDTOBuilder builderToInit;
+    public IDTOPlan planToInit;
 
-    public SingleStockInputObject(Stock stockToShow, DTOBuilder builderToInit, DTOPlan planToInit) {
+    public SingleStockInputObject(Stock stockToShow, IDTOBuilder builderToInit, IDTOPlan planToInit) {
         this.stockToShow = stockToShow;
         this.builderToInit = builderToInit;
         this.planToInit = planToInit;
@@ -18,19 +18,19 @@ public class SingleStockInputObject implements IInputObject{
         this.stockToShow = stockToShow;
     }
 
-    public DTOBuilder getBuilderToInit() {
+    public IDTOBuilder getBuilderToInit() {
         return builderToInit;
     }
 
-    public void setBuilderToInit(DTOBuilder builderToInit) {
+    public void setBuilderToInit(IDTOBuilder builderToInit) {
         this.builderToInit = builderToInit;
     }
 
-    public DTOPlan getPlanToInit() {
+    public IDTOPlan getPlanToInit() {
         return planToInit;
     }
 
-    public void setPlanToInit(DTOPlan planToInit) {
+    public void setPlanToInit(IDTOPlan planToInit) {
         this.planToInit = planToInit;
     }
 }
