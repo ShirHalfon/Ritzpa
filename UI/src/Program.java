@@ -4,10 +4,8 @@
 *import com.sun.xml.internal.ws.api.pipe.Engine.*;
 */
 /*import com.sun.security.ntlm.Client;*/
- import com.sun.xml.internal.ws.api.pipe.Engine;
 
 import javax.xml.bind.JAXBException;
-import java.io.File;
 import java.io.FileNotFoundException;
 
 
@@ -16,7 +14,7 @@ public class Program {
     public static void main(String[] args) {
     String fileName= "Engine/src/Sources/ex1-small.xml";
     ConcreteEngine engine=new ConcreteEngine();
-    IInputObject inputObject = new ReadingANewFileInputObejct(fileName, engine);
+    IInputObject inputObject = new readingANewFileInputObejct(fileName, engine);
     Client client= new Client();
     try {
     client.ReadingANewFile(inputObject);

@@ -11,7 +11,7 @@ public class Client {
 //some changes
     private final String JAXB_XML_GAME_PACKAGE_NAME = "Generated";
 
-    public void ReadingANewFile(IInputObject inputObject,ConcreteEngine engine) throws Exception {
+    public void ReadingANewFile(IInputObject inputObject) throws Exception {
         /**the UI checks the FILE NAME
          * This shoule not be STATIC!!!**/
         /*
@@ -22,16 +22,16 @@ public class Client {
         IDTOBuilder builder;
         IDTOPlan plan;
         System.out.println("From File to Object");
-        engine.FileNameCheck(((ReadingANewFileInputObejct)inputObject).i_FileNameToReadFrom);
-        File file=new File(((ReadingANewFileInputObejct)inputObject).i_FileNameToReadFrom);
-        InputStream inputStream = new FileInputStream(((ReadingANewFileInputObejct)inputObject).i_FileNameToReadFrom);
+        ((readingANewFileInputObejct)inputObject).allStocksInOurDataStructures.fileNameCheck(((readingANewFileInputObejct)inputObject).fileNameToReadFrom);
+        File file=new File(((readingANewFileInputObejct)inputObject).fileNameToReadFrom);
+        InputStream inputStream = new FileInputStream(((readingANewFileInputObejct)inputObject).fileNameToReadFrom);
         JAXBContext jaxbContext = JAXBContext.newInstance(JAXB_XML_GAME_PACKAGE_NAME);
         Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
         RizpaStockExchangeDescriptor RSEexchangeDescriptor = (RizpaStockExchangeDescriptor) unmarshaller.unmarshal(file);
         for (RseStock stock : RSEexchangeDescriptor.getRseStocks().getRseStock()) {
             Stock stockToAdd = new Stock(stock.getRseCompanyName(), stock.getRseSymbol(), stock.getRsePrice());
-            engine.StockCheck(((ReadingANewFileInputObejct)inputObject).allStocksInOurDataStructures,stockToAdd);//if the stock isn't valid an exaption wiil be thrown
-            ((ReadingANewFileInputObejct)inputObject).allStocksInOurDataStructures.getStockList().add(stockToAdd);
+            ((readingANewFileInputObejct)inputObject).allStocksInOurDataStructures.stockCheck(((readingANewFileInputObejct)inputObject).allStocksInOurDataStructures,stockToAdd);//if the stock isn't valid an exaption wiil be thrown
+            ((readingANewFileInputObejct)inputObject).allStocksInOurDataStructures.getStockList().add(stockToAdd);
         }
 
     }
@@ -120,13 +120,13 @@ public class Client {
             //LMT is the max to spend
             //meet with SEELING orders
             ((OrderActionInputObject)inputObject).engine
-                    .BuyingAction(((OrderActionInputObject)inputObject).orderToCommit,
+                    .buyingAction(((OrderActionInputObject)inputObject).orderToCommit,
                             isOrderComplete, stockToCommitOrderOn);
         } else {
             //LMT is the min price
             //meet with BUYING orders
             ((OrderActionInputObject)inputObject).engine
-                    .SellingAction(((OrderActionInputObject)inputObject).orderToCommit,
+                    .sellingAction(((OrderActionInputObject)inputObject).orderToCommit,
                             isOrderComplete, stockToCommitOrderOn);
 
         }

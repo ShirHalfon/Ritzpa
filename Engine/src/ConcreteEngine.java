@@ -27,7 +27,7 @@ public class ConcreteEngine {
         return null;
     }
 
-    public void BuyingAction(Order buyingOrder, Boolean isOrderComplete, Stock stockToCommitOrderOn) {
+    public void buyingAction(Order buyingOrder, Boolean isOrderComplete, Stock stockToCommitOrderOn) {
 
         for(Iterator<Order> iter=stockToCommitOrderOn.getSellingOrders().iterator();iter.hasNext();){
             Order orderToCheck= iter.next();
@@ -36,11 +36,11 @@ public class ConcreteEngine {
                 if (orderToCheck.getPrice() <= buyingOrder.getPrice()) {
                     if (orderToCheck.getAmount() == buyingOrder.getAmount()) {
                         /*add the deal to the DealsList*/
-                        isOrderComplete=SellinOrderAndBuyingOrderHaveEqualAmount_BUYING(buyingOrder, stockToCommitOrderOn,iter, orderToCheck.getPrice());
+                        isOrderComplete= sellinOrderAndBuyingOrderHaveEqualAmount_BUYING(buyingOrder, stockToCommitOrderOn,iter, orderToCheck.getPrice());
                     } else if (orderToCheck.getAmount() > buyingOrder.getAmount()) {
-                        isOrderComplete=BuyingOrderAmountBiggerThanGivenOrderAmounnt_BUYING(buyingOrder,orderToCheck,stockToCommitOrderOn);
+                        isOrderComplete= buyingOrderAmountBiggerThanGivenOrderAmounnt_BUYING(buyingOrder,orderToCheck,stockToCommitOrderOn);
                     } else {
-                        SellingOrderAmountBiggerThanGivenOrderAmounnt_BUYING(buyingOrder,orderToCheck,stockToCommitOrderOn,iter, orderToCheck.getPrice());
+                        sellingOrderAmountBiggerThanGivenOrderAmounnt_BUYING(buyingOrder,orderToCheck,stockToCommitOrderOn,iter, orderToCheck.getPrice());
                     }
                 }
             }
@@ -51,14 +51,14 @@ public class ConcreteEngine {
         }
     }
 
-    private boolean SellinOrderAndBuyingOrderHaveEqualAmount_BUYING(Order buyingOrder, Stock stockToCommitOrderOn, Iterator<Order> iter,int price){
+    private boolean sellinOrderAndBuyingOrderHaveEqualAmount_BUYING(Order buyingOrder, Stock stockToCommitOrderOn, Iterator<Order> iter, int price){
         Deal deal = new Deal(price, buyingOrder.getAmount());
         stockToCommitOrderOn.getDealsList().add(deal);
         iter.remove();
         return true;
     }
 
-    private void SellingOrderAmountBiggerThanGivenOrderAmounnt_BUYING(Order buyingOrder, Order sellingOrder, Stock stockToCommitOrderOn, Iterator<Order> iter,int price) {
+    private void sellingOrderAmountBiggerThanGivenOrderAmounnt_BUYING(Order buyingOrder, Order sellingOrder, Stock stockToCommitOrderOn, Iterator<Order> iter, int price) {
         Deal deal = new Deal(price, sellingOrder.getAmount());
         buyingOrder.setAmount(buyingOrder.getAmount() - sellingOrder.getAmount());
         iter.remove();
@@ -66,27 +66,27 @@ public class ConcreteEngine {
         /*remove the sell order from the selling order list*/
     }
 
-    private boolean BuyingOrderAmountBiggerThanGivenOrderAmounnt_BUYING(Order buyingOrder, Order sellingOrder, Stock stockToCommitOrderOn) {
+    private boolean buyingOrderAmountBiggerThanGivenOrderAmounnt_BUYING(Order buyingOrder, Order sellingOrder, Stock stockToCommitOrderOn) {
         sellingOrder.setAmount(sellingOrder.getAmount() - buyingOrder.getAmount());
         Deal deal = new Deal(sellingOrder.getPrice(), buyingOrder.getAmount());
         stockToCommitOrderOn.getDealsList().add(deal);
     return true;
     }
 
-    public void SellingAction(Order sellingOrder, Boolean isOrderComplete, Stock stockToCommitOrderOn) {
+    public void sellingAction(Order sellingOrder, Boolean isOrderComplete, Stock stockToCommitOrderOn) {
         for(Iterator<Order> iter=stockToCommitOrderOn.getBuyingOrders().iterator();iter.hasNext();){
             Order orderToCheck=iter.next();
             if (!isOrderComplete) {
                 //go over all the seling order and try to commit
                 if (orderToCheck.getPrice() >= sellingOrder.getPrice()) {
                     if(orderToCheck.getAmount()== sellingOrder.getAmount()) {
-                        isOrderComplete=SellinOrderAndBuyingOrderHaveEqualAmount_SELLING(sellingOrder, stockToCommitOrderOn, iter,orderToCheck.getPrice());
+                        isOrderComplete= sellinOrderAndBuyingOrderHaveEqualAmount_SELLING(sellingOrder, stockToCommitOrderOn, iter,orderToCheck.getPrice());
                     }
                     else if(orderToCheck.getAmount()>sellingOrder.getAmount()){
-                        isOrderComplete=BuyingOrderAmountBiggerThanGivenOrderAmounnt_SELLING(sellingOrder,orderToCheck,stockToCommitOrderOn);
+                        isOrderComplete= buyingOrderAmountBiggerThanGivenOrderAmounnt_SELLING(sellingOrder,orderToCheck,stockToCommitOrderOn);
                     }
                     else{
-                        SellingOrderAmountBiggerThanGivenOrderAmounnt_SELLING(sellingOrder,orderToCheck,stockToCommitOrderOn,iter);
+                        sellingOrderAmountBiggerThanGivenOrderAmounnt_SELLING(sellingOrder,orderToCheck,stockToCommitOrderOn,iter);
                     }
                 }
             }
@@ -97,7 +97,7 @@ public class ConcreteEngine {
         }
     }
 
-    private boolean SellinOrderAndBuyingOrderHaveEqualAmount_SELLING(Order sellingOrder, Stock stockToCommitOrderOn, Iterator<Order> iter,int price) {
+    private boolean sellinOrderAndBuyingOrderHaveEqualAmount_SELLING(Order sellingOrder, Stock stockToCommitOrderOn, Iterator<Order> iter, int price) {
         Deal deal = new Deal(price, sellingOrder.getAmount());
         stockToCommitOrderOn.getDealsList().add(deal);
         iter.remove();
@@ -105,14 +105,14 @@ public class ConcreteEngine {
         /*add the deal to the DealsList*/
     }
 
-    private void SellingOrderAmountBiggerThanGivenOrderAmounnt_SELLING(Order sellingOrder, Order buyingOrder, Stock stockToCommitOrderOn,Iterator<Order> iter){
+    private void sellingOrderAmountBiggerThanGivenOrderAmounnt_SELLING(Order sellingOrder, Order buyingOrder, Stock stockToCommitOrderOn, Iterator<Order> iter){
         Deal deal = new Deal(buyingOrder.getPrice(), buyingOrder.getAmount());
         sellingOrder.setAmount(sellingOrder.getAmount()- buyingOrder.getAmount());
         iter.remove();
         stockToCommitOrderOn.getDealsList().add(deal);
     }
 
-    private boolean BuyingOrderAmountBiggerThanGivenOrderAmounnt_SELLING(Order sellingOrder, Order buyingOrder, Stock stockToCommitOrderOn) {
+    private boolean buyingOrderAmountBiggerThanGivenOrderAmounnt_SELLING(Order sellingOrder, Order buyingOrder, Stock stockToCommitOrderOn) {
         buyingOrder.setAmount(buyingOrder.getAmount()- sellingOrder.getAmount());
         Deal deal = new Deal(buyingOrder.getPrice(), sellingOrder.getAmount());
         stockToCommitOrderOn.getDealsList().add(deal);
@@ -120,14 +120,14 @@ public class ConcreteEngine {
         /*add the deal to the DealsList*/
     }
 
-    public void FileNameCheck(String fileName) throws Exception {
+    public void fileNameCheck(String fileName) throws Exception {
         String fileFormat=".xml";
         int stringLen=fileName.length();
         if(fileName.substring(stringLen-4,stringLen).compareTo(fileFormat)!=0)
             throw new Exception("Incorrect file format.");
     }
 
-    public void StockCheck(ConcreteEngine engine,Stock stockToCheck) throws Exception {
+    public void stockCheck(ConcreteEngine engine, Stock stockToCheck) throws Exception {
         /*SYMBOL-
         1.English letter only.                      V
         2. not empty                                V
