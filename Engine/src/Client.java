@@ -11,7 +11,7 @@ public class Client {
 //some changes
     private final String JAXB_XML_GAME_PACKAGE_NAME = "Generated";
 
-    public void ReadingANewFile(IInputObject inputObject) throws Exception {
+    public void ReadingANewFile(IInputObject inputObject,ConcreteEngine engine) throws Exception {
         /**the UI checks the FILE NAME
          * This shoule not be STATIC!!!**/
         /*
@@ -22,7 +22,7 @@ public class Client {
         IDTOBuilder builder;
         IDTOPlan plan;
         System.out.println("From File to Object");
-        FileNameCheck(((ReadingANewFileInputObejct)inputObject).i_FileNameToReadFrom);
+        engine.FileNameCheck(((ReadingANewFileInputObejct)inputObject).i_FileNameToReadFrom);
         File file=new File(((ReadingANewFileInputObejct)inputObject).i_FileNameToReadFrom);
         InputStream inputStream = new FileInputStream(((ReadingANewFileInputObejct)inputObject).i_FileNameToReadFrom);
         JAXBContext jaxbContext = JAXBContext.newInstance(JAXB_XML_GAME_PACKAGE_NAME);
@@ -30,65 +30,10 @@ public class Client {
         RizpaStockExchangeDescriptor RSEexchangeDescriptor = (RizpaStockExchangeDescriptor) unmarshaller.unmarshal(file);
         for (RseStock stock : RSEexchangeDescriptor.getRseStocks().getRseStock()) {
             Stock stockToAdd = new Stock(stock.getRseCompanyName(), stock.getRseSymbol(), stock.getRsePrice());
-            StockCheck(((ReadingANewFileInputObejct)inputObject).allStocksInOurDataStructures,stockToAdd);//if the stock isn't valid an exaption wiil be thrown
+            engine.StockCheck(((ReadingANewFileInputObejct)inputObject).allStocksInOurDataStructures,stockToAdd);//if the stock isn't valid an exaption wiil be thrown
             ((ReadingANewFileInputObejct)inputObject).allStocksInOurDataStructures.getStockList().add(stockToAdd);
         }
 
-    }
-
-    private void FileNameCheck(String fileName) throws Exception {
-        String fileFormat=".xml";
-        int stringLen=fileName.length();
-        if(fileName.substring(stringLen-4,stringLen).compareTo(fileFormat)!=0)
-            throw new Exception("Incorrect file format.");
-    }
-
-    private void StockCheck(ConcreteEngine engine,Stock stockToCheck) throws Exception
-    {/*
-        SYMBOL-
-        1.English letter only.                      V
-        2. not empty                                V
-        3. no space                                 V
-        4. in upper case                            V
-        COMPANY NAME-
-        1.
-        PRICE-                                      V
-        1.possitive number IN stock CTOR            V
-        GENERAL-                                    V
-        1.for each company name only one symbol     V
-         */
-        if(stockToCheck.getSymbol().length()==0)
-            throw new Exception("The symbol of "+stockToCheck.getCompanyName()+" is an empty string");
-        else for(int i=0;i<stockToCheck.getSymbol().length();i++){
-            if(!(((stockToCheck.getSymbol().charAt(i)>='A')&&(stockToCheck.getSymbol().charAt(i)<='Z'))||(((stockToCheck.getSymbol().charAt(i)>='a')&&(stockToCheck.getSymbol().charAt(i)<='z')))))
-                throw new Exception("There is a non-letter char in the symbol of "+stockToCheck.getCompanyName());
-        }
-        if((stockToCheck.getSymbol().compareToIgnoreCase(stockToCheck.getSymbol()))!=0){
-            throw new Exception("The symbol isnwt in uppercase");
-        }
-        if(stockToCheck.getStockPrice()<=0)
-        {
-            throw new Exception("the stock price is a non possitive number.");
-        }
-        //GENERAL
-        Stock stockWithTheSameName=findStockByName(stockToCheck.getCompanyName(),engine);
-        if(stockWithTheSameName!=null)
-        {//there is a stock with the same name
-            //need to check the symbol
-            if((stockToCheck.getSymbol().compareTo(stockWithTheSameName.getSymbol()))!=0)
-            {
-                throw new Exception("The company "+stockToCheck.getCompanyName()+" already exists with different symbol");
-            }
-        }
-    }
-
-    private static Stock findStockByName(String stockName,ConcreteEngine engine)
-    {
-        for (Stock stock: engine.getStockList()) {
-            if(stockName.compareTo(stock.getCompanyName())==0)
-                return stock;
-        }
-        return null;
     }
 
     public void ShowAllStocks(IInputObject inputObject) throws Exception{
