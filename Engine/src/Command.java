@@ -14,9 +14,13 @@ public class Command {
             this.client = client;
         }
 
+        public ReadingANewFileCommand(Client client) {
+            this.client = client;
+        }
+
         @Override
         public void execute(IInputObject inputObject) throws Exception {
-            //need the function to not be static
+            client.ReadingANewFile(inputObject);
         }
     }
 
@@ -28,6 +32,10 @@ public class Command {
         }
 
         public void setClient(Client client) {
+            this.client = client;
+        }
+
+        public ShowAllStocksCommand(Client client) {
             this.client = client;
         }
 
@@ -48,6 +56,10 @@ public class Command {
             this.client = client;
         }
 
+        public ShowSingleStockCommand(Client client) {
+            this.client = client;
+        }
+
         @Override
         public void execute(IInputObject inputObject) throws Exception {
             client.ShowSingleStock(inputObject);
@@ -61,6 +73,10 @@ public class Command {
         }
 
         public void setClient(Client client) {
+            this.client = client;
+        }
+
+        public OrderActionCommand(Client client) {
             this.client = client;
         }
 
@@ -80,6 +96,10 @@ public class Command {
             this.client = client;
         }
 
+        public ShowOrdersForAllStocksCommand(Client client) {
+            this.client = client;
+        }
+
         @Override
         public void execute(IInputObject inputObject) throws Exception {
             client.ShowOrdersForAllStocks(inputObject);
@@ -87,6 +107,10 @@ public class Command {
     }
     public class ExitCommand implements ICommand {
         public Client client;
+
+        public ExitCommand(Client client) {
+            this.client = client;
+        }
 
         public Client getClient() {
             return client;
@@ -101,6 +125,4 @@ public class Command {
             client.Exit(inputObject);
         }
     }
-
-
 }

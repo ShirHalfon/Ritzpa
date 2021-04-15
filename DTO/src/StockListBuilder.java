@@ -1,9 +1,9 @@
 import java.util.ArrayList;
 
-public class StockListBuilder implements DTOBuilder{
+public class StockListBuilder implements IDTOBuilder {
 
     @Override
-    public DTOPlan getDTO(Object object) {
+    public IDTOPlan getDTO(Object object) {
         return new StocksListPlan( (ArrayList<Stock>) object);
     }
 }

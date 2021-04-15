@@ -1,16 +1,11 @@
 import Generated.RizpaStockExchangeDescriptor;
 import Generated.RseStock;
-import Generated.RseStocks;
 
 import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Iterator;
 
 public class Client {
 //some changes
@@ -24,8 +19,8 @@ public class Client {
          * Validation on Data       V
          * Copy all the data        V
          * */
-        DTOBuilder builder;
-        DTOPlan plan;
+        IDTOBuilder builder;
+        IDTOPlan plan;
         System.out.println("From File to Object");
         FileNameCheck(((ReadingANewFileInputObejct)inputObject).i_FileNameToReadFrom);
         File file=new File(((ReadingANewFileInputObejct)inputObject).i_FileNameToReadFrom);

@@ -3,10 +3,10 @@ import java.util.ArrayList;
 public class ShowListsFromAllStocksInputObject implements IInputObject{
 
     public ArrayList<Stock> stocks;
-    public DTOBuilder builderToInit;
-    public DTOPlan planToInit;
+    public IDTOBuilder builderToInit;
+    public IDTOPlan planToInit;
 
-    public ShowListsFromAllStocksInputObject(ArrayList<Stock> stocks, DTOBuilder builderToInit, DTOPlan planToInit) {
+    public ShowListsFromAllStocksInputObject(ArrayList<Stock> stocks, IDTOBuilder builderToInit, IDTOPlan planToInit) {
         this.stocks = stocks;
         this.builderToInit = builderToInit;
         this.planToInit = planToInit;
@@ -16,11 +16,11 @@ public class ShowListsFromAllStocksInputObject implements IInputObject{
         return stocks;
     }
 
-    public DTOBuilder getBuilderToInit() {
+    public IDTOBuilder getBuilderToInit() {
         return builderToInit;
     }
 
-    public DTOPlan getPlanToInit() {
+    public IDTOPlan getPlanToInit() {
         return planToInit;
     }
 
@@ -28,11 +28,11 @@ public class ShowListsFromAllStocksInputObject implements IInputObject{
         this.stocks = stocks;
     }
 
-    public void setBuilderToInit(DTOBuilder builderToInit) {
+    public void setBuilderToInit(IDTOBuilder builderToInit) {
         this.builderToInit = builderToInit;
     }
 
-    public void setPlanToInit(DTOPlan planToInit) {
+    public void setPlanToInit(IDTOPlan planToInit) {
         this.planToInit = planToInit;
     }
 }

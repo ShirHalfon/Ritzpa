@@ -21,11 +21,11 @@ public class InputObjectFactory {
                 break;
             }
             case SHOWALLSTOCKS: {
-                inputObject = new ShowListsFromAllStocksInputObject((ArrayList<Stock>)objects[0], (DTOBuilder)objects[1], (DTOPlan)objects[2]);
+                inputObject = new ShowListsFromAllStocksInputObject((ArrayList<Stock>)objects[0], (IDTOBuilder)objects[1], (IDTOPlan)objects[2]);
                 break;
             }
             case SHOWSINGLESTOCK: {
-                inputObject = new SingleStockInputObject((Stock)objects[0], (DTOBuilder)objects[1], (DTOPlan)objects[2]);
+                inputObject = new SingleStockInputObject((Stock)objects[0], (IDTOBuilder)objects[1], (IDTOPlan)objects[2]);
                 break;
             }
             case ORDERACTION: {
@@ -33,7 +33,7 @@ public class InputObjectFactory {
                 break;
             }
             case SHOWALLORDERS: {
-                inputObject = new ShowListsFromAllStocksInputObject((ArrayList<Stock>)objects[0], (DTOBuilder)objects[1], (DTOPlan)objects[2]);
+                inputObject = new ShowListsFromAllStocksInputObject((ArrayList<Stock>)objects[0], (IDTOBuilder)objects[1], (IDTOPlan)objects[2]);
                 break;
             }
             case EXIST:{

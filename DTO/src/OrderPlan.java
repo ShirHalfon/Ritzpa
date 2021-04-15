@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-
-public class OrderPlan implements DTOPlan{
+public class OrderPlan implements IDTOPlan {
 
     private String price;
     private String amount;

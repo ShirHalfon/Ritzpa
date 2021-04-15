@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class StocksListPlan implements DTOPlan {
+public class StocksListPlan implements IDTOPlan {
 
     private final ArrayList<Stock> stocksList;
     private String data;

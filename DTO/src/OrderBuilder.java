@@ -1,7 +1,7 @@
-public class OrderBuilder implements DTOBuilder{
+public class OrderBuilder implements IDTOBuilder {
 
     @Override
-    public DTOPlan getDTO(Object object) {
+    public IDTOPlan getDTO(Object object) {
         return new OrderPlan((Order) object);
     }
 }
