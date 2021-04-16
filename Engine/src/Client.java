@@ -169,7 +169,7 @@ public class Client {
          * If we can make it - add the option to save the system's status - using serialization
          * If we save then we need to add loading the status if it exists
          * */
-
+        System.out.println("Bye Bye!! :)");
         System.exit(0);
     }
 }

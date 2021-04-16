@@ -17,10 +17,11 @@ public class AppUI {
     private IInputObject inputObject;
     private InputObjectFactory factory;
 
-    public AppUI(ArrayList<MenuItem> commandsList) {
+    public AppUI() {
         this.client = new Client();
         this.coreEngine = new ConcreteEngine();
         this.menusList = new ArrayList<>();
+        this.initCommands();
         this.inputObject = null;
         this.builder = null;
         this.plan = null;
@@ -51,7 +52,7 @@ public class AppUI {
     }
 
 
-    public void run()throws Exception{
+    public void run(){
 
         int i = 1;
         int input = 0;
@@ -88,7 +89,7 @@ public class AppUI {
                 }
                 inputObjectType = InputObjectType.values()[input -1];
                 getInputObject(inputObjectType);
-                selected(this.inputObject);
+                selected(this.inputObject, input);
             }
         }catch (Exception exception){
             System.out.println("The was an exception:\n" + Arrays.toString(exception.getStackTrace()));
@@ -110,9 +111,7 @@ public class AppUI {
                 break;
             }
             case ORDERACTION: {
-                //Order
-                //builder
-                //plan
+                getDetailsForOrder(inputObjectType);
                 break;
             }
             case SHOWALLORDERS: {
@@ -120,7 +119,7 @@ public class AppUI {
                 break;
             }
             case EXIST:{
-                //Input Obeject
+                getDetailsForExit(inputObjectType);
             }
         }
     }
@@ -177,12 +176,60 @@ public class AppUI {
         //type - lmt hard coded for now
         //direction Selling/Buying
         //symbol -
+        Scanner scanner = new Scanner(System.in);
         boolean inputValidation = false;
-
+        int price, amount;
+        OrderType type = OrderType.LMT;
+        OrderDirection direction;
+        String symbol;
+        String tempInput;
+        while(!inputValidation){
+            System.out.println("Please enter wanted price (higher than 0):");
+            while(!scanner.hasNextInt()){
+                System.out.println("Please enter numbers only");
+            }
+            price = scanner.nextInt();
+            if(price <= 0){
+                System.out.println("Please enter a number higher than 0");
+            }else {
+                System.out.println("Please enter wanted amount (higher than 0):");
+                while (!scanner.hasNextInt()){
+                    System.out.println("Please enter numbers only");
+                }
+                amount = scanner.nextInt();
+                if(amount <= 0){
+                    System.out.println("Please enter a number higher than 0");
+                }else{
+                    System.out.println("Would you like to sell stocks or buy stocks?(for selling insert s/S and for buying insert b/B)");
+                    tempInput = scanner.nextLine();
+                    while(tempInput.compareToIgnoreCase("s") != 0 || tempInput.compareToIgnoreCase("b") != 0){
+                        System.out.println("Please enter s or b only");
+                    }
+                    if(tempInput.compareToIgnoreCase("s") == 0){
+                        direction = OrderDirection.SELLING;
+                    }else{
+                        direction = OrderDirection.BUYING;
+                    }
+                    System.out.println("Please enter symbol:");
+                    symbol = scanner.nextLine();
+                    while (!findStockByNameOrSymbol(symbol)){
+                        System.out.println("This symbol doesn't exist in the system, please enter a valid symbol:");
+                        symbol = scanner.nextLine();
+                    }
+                    this.orderToCommit = new Order(price, amount, type, direction, symbol);
+                    this.inputObject = this.factory.createInputObject(inputObjectType, this.orderToCommit, this.coreEngine);
+                    inputValidation = true;
+                }
+            }
+        }
     }
 
     private void getDetailsForShowAllOrders(InputObjectType inputObjectType){
         this.inputObject = this.factory.createInputObject(inputObjectType, this.coreEngine.stocks, this.builder, this.plan);
+    }
+
+    private void getDetailsForExit(InputObjectType inputObjectType){
+        this.inputObject = this.factory.createInputObject(inputObjectType);
     }
 
     private boolean findStockByNameOrSymbol(String input){
@@ -195,7 +242,11 @@ public class AppUI {
         return found;
     }
 
-    private void selected(IInputObject inputObject){
-
+    private void selected(IInputObject inputObject, int actionInput){
+        try{
+            this.menusList.get(actionInput).command.execute(inputObject);
+        }catch (Exception exception){
+            System.out.println("Something went wrong:\n" + exception.getMessage() + exception.getStackTrace());
+        }
     }
 }
