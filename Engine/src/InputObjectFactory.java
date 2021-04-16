@@ -17,7 +17,7 @@ public class InputObjectFactory {
 
         switch (type) {
             case FILEREAD: {
-                inputObject = new readingANewFileInputObejct((String)objects[0], (ConcreteEngine)objects[1]);
+                inputObject = new ReadingANewFileInputObejct((String)objects[0], (ConcreteEngine)objects[1]);
                 break;
             }
             case SHOWALLSTOCKS: {

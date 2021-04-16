@@ -124,7 +124,7 @@ public class ConcreteEngine {
         String fileFormat=".xml";
         int stringLen=fileName.length();
         if(fileName.substring(stringLen-4,stringLen).compareTo(fileFormat)!=0)
-            throw new Exception("Incorrect file format.");
+            throw new Exception("Incorrect file format, Please insert an XML file only");
     }
 
     public void stockCheck(ConcreteEngine engine, Stock stockToCheck) throws Exception {

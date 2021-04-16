@@ -1,9 +1,9 @@
-public class readingANewFileInputObejct implements IInputObject{
+public class ReadingANewFileInputObejct implements IInputObject{
 
     public String fileNameToReadFrom;
     public ConcreteEngine allStocksInOurDataStructures;//need to remove after Engin becomes Static
 
-    public readingANewFileInputObejct(String FileNameToReadFrom, ConcreteEngine allStocksInOurDataStructures) {
+    public ReadingANewFileInputObejct(String FileNameToReadFrom, ConcreteEngine allStocksInOurDataStructures) {
         this.fileNameToReadFrom = FileNameToReadFrom;
         this.allStocksInOurDataStructures = allStocksInOurDataStructures;
     }

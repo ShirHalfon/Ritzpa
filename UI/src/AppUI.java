@@ -1,3 +1,4 @@
+import com.sun.corba.se.pept.encoding.InputObject;
 import com.sun.xml.internal.ws.api.pipe.Engine;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ public class AppUI {
     private Order orderToCommit;
     private final ArrayList<MenuItem> menusList;
     private IInputObject inputObject;
+    private InputObjectFactory factory;
 
     public AppUI(ArrayList<MenuItem> commandsList) {
         this.client = new Client();
@@ -52,10 +54,11 @@ public class AppUI {
     public void run()throws Exception{
 
         int i = 1;
-        int input;
+        int input = 0;
         boolean inputValidation = false;
         boolean fileLoaded = false;
         Scanner scanner = new Scanner(System.in);
+        InputObjectType inputObjectType = null;
 
         System.out.println("Hello and thank you for choosing Ritzpa\n" +
                 "Please, select the action you would like to perform:\n" +
@@ -66,48 +69,44 @@ public class AppUI {
             i++;
         }
         System.out.println("\nPlease insert your choice here: ");
-        try {
-            while (!inputValidation)
-            {
-                input = scanner.nextInt();
-                if(input < 1 || input > menusList.size()){
-                    System.out.println("The input you provided is out of range, please select a number between 1 and " + menusList.size() + "\n");
-                }else if(!scanner.hasNextInt()){
-                    System.out.println("The input you provided isn't a number, pleaseselect a number between 1 and " + menusList.size() + "\n");
-                }else if((input != 1 || input != menusList.size()) && !fileLoaded){
-                    System.out.println("There is no data loaded in the system, please select option 1 and load a new file");
-                }else {
-                    System.out.println("Input was selected successfully\n");
-                    inputValidation = true;
+        try{
+            while(true){
+                while (!inputValidation)
+                {
+                    input = scanner.nextInt();
+                    if(input < 1 || input > menusList.size()){
+                        System.out.println("The input you provided is out of range, please select a number between 1 and " + menusList.size());
+                    }else if(!scanner.hasNextInt()){
+                        System.out.println("The input you provided isn't a number, pleaseselect a number between 1 and " + menusList.size());
+                    }else if((input != 1 || input != menusList.size()) && !fileLoaded){
+                        System.out.println("There is no data loaded in the system, please select option 1 and load a new file");
+                    }else {
+                        fileLoaded = true;
+                        System.out.println("Input was selected successfully");
+                        inputValidation = true;
+                    }
                 }
+                inputObjectType = InputObjectType.values()[input -1];
+                getInputObject(inputObjectType);
+                selected(this.inputObject);
             }
         }catch (Exception exception){
             System.out.println("The was an exception:\n" + Arrays.toString(exception.getStackTrace()));
         }
-
-        //get input
-        //validate input
-        //selected
     }
 
-    private IInputObject getInputObject(InputObjectType inputObjectType){
-        InputObjectType inputObjectType1;
+    private void getInputObject(InputObjectType inputObjectType){
         switch (inputObjectType) {
             case FILEREAD: {
-                //file path
-                //engine
+                getDetailsForFile(inputObjectType);
                 break;
             }
             case SHOWALLSTOCKS: {
-                //stocks array list
-                //builder
-                //plan
+                getDetailsForShowingAllStocks(inputObjectType);
                 break;
             }
             case SHOWSINGLESTOCK: {
-                //Stock
-                //builder
-                //plan
+                getDetailsForShowingOneStock(inputObjectType);
                 break;
             }
             case ORDERACTION: {
@@ -117,24 +116,86 @@ public class AppUI {
                 break;
             }
             case SHOWALLORDERS: {
-                //stocks array list
-                //builder
-                //plan
+                getDetailsForShowAllOrders(inputObjectType);
                 break;
             }
             case EXIST:{
                 //Input Obeject
             }
         }
-
-
-
-        return inputObject;
     }
-    private boolean inputValidation(){
+
+    private void getDetailsForFile(InputObjectType inputObjectType){
+        Scanner scanner = new Scanner(System.in);
+        boolean inputValidation = false;
+        String filePath;
+        System.out.println("Please insert input file path and please note it must be an XML file:");
+        while (!inputValidation){
+            try{
+                filePath = scanner.nextLine();
+                coreEngine.fileNameCheck(filePath);
+                this.inputObject = this.factory.createInputObject(inputObjectType,filePath, coreEngine);
+                inputValidation = true;
+            }catch (Exception exception){
+                System.out.println("Something went wrong with this action:" + exception.getMessage());
+            }
+        }
+    }
+
+    private void getDetailsForShowingAllStocks(InputObjectType inputObjectType){
+        this.inputObject = this.factory.createInputObject(inputObjectType,
+                this.coreEngine.stocks, this.builder, this.plan);
+    }
+
+    private void getDetailsForShowingOneStock(InputObjectType inputObjectType){
+        Scanner scanner = new Scanner(System.in);
+        String input;
+        boolean inputValidation = false;
+        System.out.println("Which stock would you like to watch? Please enter name or symbol");
+        try{
+            while(!inputValidation){
+                input = scanner.nextLine();
+                if(!findStockByNameOrSymbol(input)){
+                    System.out.println("The stock doesn't exist in the system, please select another");
+                }else{
+                    Stock stock;
+                    if ((stock = coreEngine.findStockByName(input)) == null) {
+                        stock = coreEngine.findStockBySymbol(input);
+                    }
+                    this.inputObject = this.factory.createInputObject(inputObjectType, stock, this.builder, this.plan);
+                    inputValidation = true;
+                }
+            }
+        }catch (Exception exception){
+            System.out.println("Something went wrong with showing a single stock:\n" + exception.getStackTrace());
+        }
+    }
+
+    private void getDetailsForOrder(InputObjectType inputObjectType){
+        //price > 0
+        //amount > 0
+        //type - lmt hard coded for now
+        //direction Selling/Buying
+        //symbol -
         boolean inputValidation = false;
 
+    }
 
-        return inputValidation;
+    private void getDetailsForShowAllOrders(InputObjectType inputObjectType){
+        this.inputObject = this.factory.createInputObject(inputObjectType, this.coreEngine.stocks, this.builder, this.plan);
+    }
+
+    private boolean findStockByNameOrSymbol(String input){
+        boolean found = false;
+        for(Stock stock:this.coreEngine.stocks){
+            if((input.compareToIgnoreCase(stock.getCompanyName()) == 0) ||
+                    (input.compareToIgnoreCase(stock.getSymbol()) == 0))
+                found = true;
+        }
+        return found;
+    }
+
+    private void selected(IInputObject inputObject){
+
     }
 }
