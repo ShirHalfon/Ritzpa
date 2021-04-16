@@ -116,6 +116,9 @@ public class Client {
         if (((OrderActionInputObject)inputObject).orderToCommit.getAmount() <= 0) {
             throw new Exception("The amount of the stock is 0");
         }
+        if (((OrderActionInputObject)inputObject).orderToCommit.getPrice() <= 0) {
+            throw new Exception("The price of the stock is 0");
+        }
         if (((OrderActionInputObject)inputObject).orderToCommit.getDirection() == OrderDirection.BUYING) {
             //LMT is the max to spend
             //meet with SEELING orders
