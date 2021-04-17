@@ -23,8 +23,11 @@ public class OrdersListPlan implements IDTOPlan {
             SingleStockPlan newStock = new SingleStockPlan(stock);
             stringToBuild.append("\n#").append(i).append(" Stock: ").append(newStock.getCompanyName())
                          .append(newStock.getSellingOrdersList())
+                         .append(newStock.getSumSellingOrders())
                          .append(newStock.getBuyingOrdersList())
-                         .append(newStock.getDealsList());
+                         .append(newStock.getSumBuyingOrders())
+                         .append(newStock.getDealsList())
+                         .append(newStock.getSumCycle());
             i++;
         }
         this.data = stringToBuild.toString();

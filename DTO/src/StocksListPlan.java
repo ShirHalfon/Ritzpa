@@ -5,8 +5,7 @@ public class StocksListPlan implements IDTOPlan {
     private ArrayList<Stock> stocksList;
     private String data;
 
-    public StocksListPlan() {
-    }
+
 
     public StocksListPlan(ArrayList<Stock> stockList) {
         this.stocksList = stockList;

@@ -43,7 +43,9 @@ public class Stock {
         return sellingOrders;
     }
 
-
+    public int getNumberOfNewDeals() {
+        return numberOfNewDeals;
+    }
 
     public void setStockPrice(int stockPrice) {
         this.stockPrice = stockPrice;
@@ -59,6 +61,10 @@ public class Stock {
 
     public void setSellingOrders(ArrayList<Order> sellingOrders) {
         this.sellingOrders = sellingOrders;
+    }
+
+    public void setNumberOfNewDeals(int numberOfNewDeals) {
+        this.numberOfNewDeals = numberOfNewDeals;
     }
 
     public void findPlaceToInsertBuyingOrder(Order buyingORderToAdd) {

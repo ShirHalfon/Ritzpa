@@ -14,9 +14,9 @@ public class OrderPlan implements IDTOPlan {
     @Override
     public void setData() {
         this.setAmount(order.getAmount());
-        this.setCycle(order.getAmount()*order.getPrice());
-        this.setDate(order.getDate());
         this.setPrice(order.getPrice());
+        this.setCycle(order.getCycle());
+        this.setDate(order.getDate());
     }
 
     public void setPrice(int price) {
@@ -33,6 +33,10 @@ public class OrderPlan implements IDTOPlan {
 
     public void setCycle(int cycle) {
         this.cycle = "- Cycle: " + Integer.toString(cycle) + "\n";
+    }
+
+    public String getCycle() {
+        return cycle;
     }
 
     @Override

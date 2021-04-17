@@ -5,7 +5,6 @@ import java.util.Iterator;
 public class ConcreteEngine {
 
     ArrayList<Stock> stocks = new ArrayList<>();
-    /**need to add show method for the list to activate in Client*/
 
     public ArrayList<Stock> getStockList() {
         return this.stocks;
@@ -55,6 +54,7 @@ public class ConcreteEngine {
         Deal deal = new Deal(price, buyingOrder.getAmount());
         stockToCommitOrderOn.getDealsList().add(deal);
         stockToCommitOrderOn.setStockPrice(deal.getPrice());
+        stockToCommitOrderOn.setNumberOfNewDeals(stockToCommitOrderOn.getNumberOfNewDeals()+1);
         iter.remove();
         return true;
     }
@@ -65,6 +65,7 @@ public class ConcreteEngine {
         iter.remove();
         stockToCommitOrderOn.getDealsList().add(deal);
         stockToCommitOrderOn.setStockPrice(deal.getPrice());
+        stockToCommitOrderOn.setNumberOfNewDeals(stockToCommitOrderOn.getNumberOfNewDeals()+1);
         /*remove the sell order from the selling order list*/
     }
 
@@ -73,6 +74,7 @@ public class ConcreteEngine {
         Deal deal = new Deal(sellingOrder.getPrice(), buyingOrder.getAmount());
         stockToCommitOrderOn.getDealsList().add(deal);
         stockToCommitOrderOn.setStockPrice(deal.getPrice());
+        stockToCommitOrderOn.setNumberOfNewDeals(stockToCommitOrderOn.getNumberOfNewDeals()+1);
         return true;
     }
 
@@ -105,6 +107,7 @@ public class ConcreteEngine {
         stockToCommitOrderOn.getDealsList().add(deal);
         iter.remove();
         stockToCommitOrderOn.setStockPrice(deal.getPrice());
+        stockToCommitOrderOn.setNumberOfNewDeals(stockToCommitOrderOn.getNumberOfNewDeals()+1);
         return true;
         /*add the deal to the DealsList*/
     }
@@ -114,6 +117,7 @@ public class ConcreteEngine {
         sellingOrder.setAmount(sellingOrder.getAmount()- buyingOrder.getAmount());
         iter.remove();
         stockToCommitOrderOn.getDealsList().add(deal);
+        stockToCommitOrderOn.setNumberOfNewDeals(stockToCommitOrderOn.getNumberOfNewDeals()+1);
         stockToCommitOrderOn.setStockPrice(deal.getPrice());
     }
 
@@ -122,6 +126,7 @@ public class ConcreteEngine {
         Deal deal = new Deal(buyingOrder.getPrice(), sellingOrder.getAmount());
         stockToCommitOrderOn.getDealsList().add(deal);
         stockToCommitOrderOn.setStockPrice(deal.getPrice());
+        stockToCommitOrderOn.setNumberOfNewDeals(stockToCommitOrderOn.getNumberOfNewDeals()+1);
         return true;
         /*add the deal to the DealsList*/
     }
@@ -134,18 +139,6 @@ public class ConcreteEngine {
     }
 
     public void stockCheck(ConcreteEngine engine, Stock stockToCheck) throws Exception {
-        /*SYMBOL-
-        1.English letter only.                      V
-        2. not empty                                V
-        3. no space                                 V
-        4. in upper case                            V
-        COMPANY NAME-
-        1.
-        PRICE-                                      V
-        1.possitive number IN stock CTOR            V
-        GENERAL-                                    V
-        1.for each company name only one symbol     V
-         */
         if(stockToCheck.getSymbol().length()==0)
             throw new Exception("The symbol of "+stockToCheck.getCompanyName()+" is an empty string");
         else for(int i=0;i<stockToCheck.getSymbol().length();i++){//check if english letters
@@ -175,5 +168,4 @@ public class ConcreteEngine {
         }
         return null;
     }
-
 }

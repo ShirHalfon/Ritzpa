@@ -2,11 +2,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Deal {
-
-    /*
-    * 1. Add show method to activate in Client
-    * */
-
     private int cycle;
     private int price;
     private int amount;

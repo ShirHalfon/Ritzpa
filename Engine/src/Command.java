@@ -40,8 +40,7 @@ public class Command {
         }
 
         @Override
-        public void execute(IInputObject inputObject) throws Exception {
-            //System.out.println("[DEBUG] in execute in object: ShowAllStocks" );
+        public void execute(IInputObject inputObject){
             client.ShowAllStocks(inputObject);
         }
     }
@@ -62,7 +61,7 @@ public class Command {
         }
 
         @Override
-        public void execute(IInputObject inputObject) throws Exception {
+        public void execute(IInputObject inputObject){
             client.ShowSingleStock(inputObject);
         }
     }
@@ -102,7 +101,7 @@ public class Command {
         }
 
         @Override
-        public void execute(IInputObject inputObject) throws Exception {
+        public void execute(IInputObject inputObject){
             client.ShowOrdersForAllStocks(inputObject);
         }
     }

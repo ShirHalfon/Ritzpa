@@ -10,6 +10,8 @@ public class SingleStockPlan implements IDTOPlan {
     private String dealsList;
     private String sellingOrdersList;
     private String buyingOrdersList;
+    private String sumSellingOrders;
+    private String sumBuyingOrders;
     private final Stock stockToExtractData;
 
     public SingleStockPlan(Stock inputStockToExtractData) {
@@ -27,6 +29,8 @@ public class SingleStockPlan implements IDTOPlan {
         this.setSymbol(stockToExtractData.getSymbol());
         this.setBuyingOrdersList(stockToExtractData.getBuyingOrders());
         this.setSellingOrdersList(stockToExtractData.getSellingOrders());
+        this.setSumSellingOrders(stockToExtractData.getSellingOrders());
+        this.setSumBuyingOrders(stockToExtractData.getBuyingOrders());
     }
 
     public String getSymbol() {
@@ -51,6 +55,14 @@ public class SingleStockPlan implements IDTOPlan {
 
     public String getDealsList() {
         return dealsList;
+    }
+
+    public String getSumSellingOrders() {
+        return sumSellingOrders;
+    }
+
+    public String getSumBuyingOrders() {
+        return sumBuyingOrders;
     }
 
     public String getSellingOrdersList() {
@@ -81,8 +93,16 @@ public class SingleStockPlan implements IDTOPlan {
         this.sumCycle = "- Sum of all cycles: " + Integer.toString(dealsList.stream().mapToInt(Deal::getCycle).sum()) + "\n";
     }
 
+    public void setSumSellingOrders(ArrayList<Order> sellingOrders) {
+        this.sumSellingOrders = "- Sum of all selling orders: " + Integer.toString(sellingOrders.stream().mapToInt(Order::getCycle).sum()) + "\n";
+    }
+
+    public void setSumBuyingOrders(ArrayList<Order> buyingOrders) {
+        this.sumBuyingOrders = "- Sum of all buying orders: " + Integer.toString(buyingOrders.stream().mapToInt(Order::getCycle).sum()) + "\n";
+    }
+
     public void setDealsList(ArrayList<Deal> dealsList) {
-        StringBuilder stringToBuild = new StringBuilder("- Deals List:\n");
+        StringBuilder stringToBuild = new StringBuilder("\n- Deals List:\n");
         if(stockToExtractData.getDealsList().size() == 0)
         {
             stringToBuild.append("\tThere are no deals to present\n");
@@ -100,7 +120,7 @@ public class SingleStockPlan implements IDTOPlan {
     }
 
     public void setSellingOrdersList(ArrayList<Order> sellingOrdersList) {
-        StringBuilder stringToBuild = new StringBuilder("- Selling Orders List:\n");
+        StringBuilder stringToBuild = new StringBuilder("\n- Selling Orders List:\n");
         if(stockToExtractData.getSellingOrders().size() == 0)
         {
             stringToBuild.append("\tThere are no selling orders to present\n");
@@ -118,7 +138,7 @@ public class SingleStockPlan implements IDTOPlan {
     }
 
     public void setBuyingOrdersList(ArrayList<Order> buyingOrdersList) {
-        StringBuilder stringToBuild = new StringBuilder("- Buying Orders List:\n");
+        StringBuilder stringToBuild = new StringBuilder("\n- Buying Orders List:\n");
         if(stockToExtractData.getBuyingOrders().size() == 0)
         {
             stringToBuild.append("\tThere are no buying orders to present\n");

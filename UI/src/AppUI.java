@@ -6,13 +6,12 @@ public class AppUI {
 
     private final Client client;
     private IDTOBuilder builder;
-    private IDTOPlan plan;
+    private final IDTOPlan plan;
     private String fileName;
     private final ConcreteEngine coreEngine;
-    private Order orderToCommit;
     private final ArrayList<MenuItem> menusList;
     private IInputObject inputObject;
-    private InputObjectFactory factory;
+    private final InputObjectFactory factory;
 
     public AppUI() {
         this.client = new Client();
@@ -51,7 +50,6 @@ public class AppUI {
 
 
     public void run(){
-
         int i = 1;
         int input = 0;
         boolean inputValidation = false;
@@ -64,45 +62,46 @@ public class AppUI {
                 "*To select your choice, please insert the number of the corresponding option (between 1 and " + menusList.size() + ")\n");
         printMenu(this.menusList);
         try{
-            //System.out.println("[DEBUG] in try");
             while(true){
-                //System.out.println("[DEBUG] in while 1");
-
                 while (!inputValidation)
                 {
-                    //System.out.println("[DEBUG] in while 2");
                     if(!scanner.hasNextInt()){
-                        System.out.println("The input you provided isn't a number, please select a number between 1 and " + menusList.size());
-                        scanner.nextLine();
+                        System.out.println("ERROR: The input you provided isn't a number. Please select a number between 1 and " + menusList.size());
                         scanner.nextLine();
                     }
                     else{
                         input = scanner.nextInt();
-                        //System.out.println("[DEBUG] input is:" + input);
                         if(input < 1 || input > menusList.size()){
-                            System.out.println("The input you provided is out of range, please select a number between 1 and " + menusList.size());
+                            System.out.println("ERROR: The input you provided is out of range. Please select a number between 1 and " + menusList.size());
                         }else if((input != 1 && input != menusList.size()) && !fileLoaded){
-                            System.out.println("There is no data loaded in the system, please select option 1 and load a new file");
+                            System.out.println("ERROR: There is no data loaded in the system. Please select option 1 and load a new file");
                         }else {
-                            fileLoaded = true;
-                            System.out.println("Input was selected successfully");
-                            inputValidation = true;
+
+                            System.out.println("The operation was selected successfully");
+                            try{
+                                inputObjectType = InputObjectType.values()[input -1];
+                                getInputObject(inputObjectType);
+                                selected(this.inputObject, input);
+                                fileLoaded = true;
+                                inputValidation = true;
+                            }catch (Exception exception){
+                                fileLoaded = false;
+                                inputValidation = false;
+                                System.out.println("ERROR: The was an exception:\n" + exception.getMessage());
+                                System.out.println( "\nPlease, select the action you would like to perform:\n" +
+                                        "*To select your choice, please insert the number of the corresponding option (between 1 and " + menusList.size() + ")\n");
+                                printMenu(this.menusList);
+                            }
                         }
                     }
                 }
-                //System.out.println("[DEBUG] after while 2");
-                inputObjectType = InputObjectType.values()[input -1];
-                //System.out.println("[DEBUG] input object type is:" + inputObjectType.toString());
-                getInputObject(inputObjectType);
-                //System.out.println("[DEBUG] input object selected: " + this.inputObject.getClass().getName());
-                selected(this.inputObject, input);
                 System.out.println( "\nPlease, select the action you would like to perform:\n" +
                         "*To select your choice, please insert the number of the corresponding option (between 1 and " + menusList.size() + ")\n");
                 printMenu(this.menusList);
                 inputValidation = false;
             }
         }catch (Exception exception){
-            System.out.println("The was an new exception:\n" + Arrays.toString(exception.getStackTrace()));
+            System.out.println("ERROR: The was an exception:\n" + exception.getMessage());
         }
     }
 
@@ -123,7 +122,6 @@ public class AppUI {
                 break;
             }
             case SHOWALLSTOCKS: {
-                //System.out.println("[DEBUG] in getInputObject case SHOWALLSTOCKS");
                 getDetailsForShowingAllStocks(inputObjectType);
                 break;
             }
@@ -140,38 +138,33 @@ public class AppUI {
                 break;
             }
             case EXIT:{
-                //System.out.println("[DEBUG] in getInputObject case EXIT");
                 getDetailsForExit(inputObjectType);
             }
         }
     }
 
     private void getDetailsForFile(InputObjectType inputObjectType){
-        this.coreEngine.stocks = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
         boolean inputValidation = false;
         String filePath;
-        System.out.println("Please insert input file path and please note it must be an XML file:");
+        System.out.println("Please insert input file path and note it must be an XML file:");
         while (!inputValidation){
             try{
                 filePath = scanner.nextLine();
                 if(filePath.charAt(filePath.length()-1) == '"' || filePath.charAt(0) == '"'){
-                    System.out.println("Please provide file path without quotation marks");
+                    System.out.println("ERROR: Please provide file path without quotation marks");
                 }else{
                     coreEngine.fileNameCheck(filePath);
                     this.inputObject = this.factory.createInputObject(inputObjectType,filePath, coreEngine);
                     inputValidation = true;
                 }
             }catch (Exception exception){
-                System.out.println("Something went wrong with this action:" + exception.getMessage());
+                System.out.println("ERROR: Something went wrong with this action:" + exception.getMessage());
             }
         }
     }
 
     private void getDetailsForShowingAllStocks(InputObjectType inputObjectType){
-        //System.out.println("[DEBUG] in getDetailsForShowAllStocks");
-        this.builder = new StockListBuilder();
-        //this.plan = new StocksListPlan();
         this.inputObject = this.factory.createInputObject(inputObjectType,
                 this.coreEngine.stocks, this.builder, this.plan);
     }
@@ -185,7 +178,7 @@ public class AppUI {
             while(!inputValidation){
                 input = scanner.nextLine();
                 if(!findStockByNameOrSymbol(input)){
-                    System.out.println("The stock doesn't exist in the system, please select another");
+                    System.out.println("ERROR: The stock doesn't exist in the system, please select another");
                 }else{
                     Stock stock;
                     if ((stock = coreEngine.findStockByName(input)) == null) {
@@ -196,65 +189,64 @@ public class AppUI {
                 }
             }
         }catch (Exception exception){
-            System.out.println("Something went wrong with showing a single stock:\n" + exception.getStackTrace());
+            System.out.println("ERROR: Something went wrong with showing a single stock:\n" + exception.getStackTrace());
         }
     }
 
     private void getDetailsForOrder(InputObjectType inputObjectType){
-        //price > 0
-        //amount > 0
-        //type - lmt hard coded for now
-        //direction Selling/Buying
-        //symbol -
         Scanner scanner = new Scanner(System.in);
         boolean inputValidation = false;
-        int price, amount;
+        int price = -1, amount = -1;
         OrderType type = OrderType.LMT;
         OrderDirection direction;
         String symbol;
         String tempInput;
 
         while(!inputValidation){
-            System.out.println("Please enter wanted price (higher than 0):");
-            while(!scanner.hasNextInt()){
-                System.out.println("Please enter numbers only");
-            }
-            price = scanner.nextInt();
-            if(price <= 0){
-                System.out.println("Please enter a price higher than 0");
-            }else {
-                System.out.println("Please enter wanted amount (higher than 0):");
-                while (!scanner.hasNextInt()){
-                    System.out.println("Please enter numbers only");
+            System.out.println("Please enter the wanted price (higher than 0):");
+            do{
+                String tempInputForPrice = scanner.nextLine();
+                try{
+                    price = Integer.parseInt(tempInputForPrice);
+                    if(price<=0){
+                        System.out.println("ERROR: Please enter price that is higher than 0:");
+                    }
+                }catch (NumberFormatException exception){
+                    System.out.println("ERROR: Please insert the price in digits only");
                 }
-                amount = scanner.nextInt();
-                while(amount <= 0) {
-                    System.out.println("Please enter an amount higher than 0");
-                    amount = scanner.nextInt();
+            }while (price<=0);
+            System.out.println("Please enter the wanted amount (higher than 0):");
+            do{
+                String tempInputForAmount = scanner.nextLine();
+                try{
+                    amount = Integer.parseInt(tempInputForAmount);
+                    if(amount<=0){
+                        System.out.println("ERROR: Please enter amount that is higher than 0:");
+                    }
+                }catch (NumberFormatException exception){
+                    System.out.println("ERROR: Please insert the amount in digits only");
                 }
-                scanner.nextLine();
-                System.out.println("Would you like to sell stocks or buy stocks?(for selling insert s/S and for buying insert b/B)");
+            }while (amount<=0);
+            System.out.println("Would you like to sell stocks or buy stocks?(for selling insert s/S and for buying insert b/B)");
+            tempInput = scanner.nextLine();
+            while (tempInput.compareToIgnoreCase("s") != 0 && tempInput.compareToIgnoreCase("b") != 0) {
+                System.out.println("ERROR: The order type you provided is invalid. Please enter s or b only");
                 tempInput = scanner.nextLine();
-                while (tempInput.compareToIgnoreCase("s") != 0 && tempInput.compareToIgnoreCase("b") != 0) {
-                    System.out.println("Please enter s or b only");
-                    tempInput = scanner.nextLine();
-                }
-                if (tempInput.compareToIgnoreCase("s") == 0) {
-                    direction = OrderDirection.SELLING;
-                } else {
-                    direction = OrderDirection.BUYING;
-                }
-                System.out.println("Please enter symbol:");
-                symbol = scanner.nextLine();
-                while (coreEngine.findStockBySymbol(symbol) == null) {
-                    System.out.println("This symbol doesn't exist in the system, please enter a valid symbol:");
-                    symbol = scanner.nextLine();
-                }
-                this.orderToCommit = new Order(price, amount, type, direction, symbol);
-                this.inputObject = this.factory.createInputObject(inputObjectType, this.orderToCommit, this.coreEngine);
-                inputValidation = true;
-
             }
+            if (tempInput.compareToIgnoreCase("s") == 0) {
+                direction = OrderDirection.SELLING;
+            } else {
+                direction = OrderDirection.BUYING;
+            }
+            System.out.println("Please enter symbol:");
+            symbol = scanner.nextLine();
+            while (coreEngine.findStockBySymbol(symbol) == null) {
+                System.out.println("ERROR: This stock doesn't exist in the system. Please enter a valid symbol:");
+                symbol = scanner.nextLine();
+            }
+            Order orderToCommit = new Order(price, amount, type, direction, symbol);
+            this.inputObject = this.factory.createInputObject(inputObjectType, orderToCommit, this.coreEngine);
+            inputValidation = true;
         }
     }
 
@@ -263,8 +255,6 @@ public class AppUI {
     }
 
     private void getDetailsForExit(InputObjectType inputObjectType){
-        //System.out.println("[DEBUG] in getDetailsForExit");
-
         this.inputObject = this.factory.createInputObject(inputObjectType);
     }
 
@@ -278,21 +268,26 @@ public class AppUI {
         return found;
     }
 
-    private void selected(IInputObject inputObject, int actionInput){
-        //System.out.println("[DEBUG] in selected with action " + actionInput);
-        try{
-            this.menusList.get(actionInput-1).command.execute(inputObject);
-
-            if(inputObject != null){
-                System.out.println(inputObject.toString());
-                if(inputObject.getClass().getName().equals(OrderActionInputObject.class.getName())){
-                    /**print num of new deals*/
-                    System.out.println("To check if new deals were created, select option 5 next");
-                }
+    private void selected(IInputObject inputObject, int actionInput) throws Exception{
+        this.menusList.get(actionInput-1).command.execute(inputObject);
+        if(inputObject != null){
+            System.out.println(inputObject.toString());
+            if(inputObject.getClass().getName().equals(OrderActionInputObject.class.getName())){
+                printNewDeals(inputObject);
             }
-        }catch (Exception exception){
-            System.out.println("Something went wrong:\n" + exception.getMessage());
         }
+    }
 
+    private void printNewDeals(IInputObject inputObject){
+        Stock stockToShowDeals = coreEngine.findStockBySymbol(((OrderActionInputObject)inputObject).orderToCommit.getSymbol());
+        if(stockToShowDeals.getNumberOfNewDeals()>0){
+            System.out.println("New deals were made!!!");
+            int i = stockToShowDeals.getDealsList().size()-stockToShowDeals.getNumberOfNewDeals();
+            int listSize = stockToShowDeals.getDealsList().size();
+            while(i<listSize){
+                System.out.println(stockToShowDeals.getDealsList().get(i).toString());
+                i++;
+            }
+        }
     }
 }

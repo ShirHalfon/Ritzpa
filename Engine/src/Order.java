@@ -9,6 +9,7 @@ public class Order {
     private OrderType type;
     private OrderDirection direction;
     private String symbol;
+    private int cycle;
 
     public Order(int price, int amount, OrderType type, OrderDirection direction, String symbol) {
         this.price = price;
@@ -17,6 +18,7 @@ public class Order {
         this.type = type;
         this.direction = direction;
         this.symbol=symbol;
+        this.cycle = price*amount;
     }
 
     public String getSymbol() {
@@ -43,6 +45,10 @@ public class Order {
         return direction;
     }
 
+    public int getCycle() {
+        return cycle;
+    }
+
     public void setSymbol(String symbol) {
         this.symbol = symbol;
     }
@@ -65,6 +71,10 @@ public class Order {
 
     public void setDirection(OrderDirection direction) {
         this.direction = direction;
+    }
+
+    public void setCycle(int cycle) {
+        this.cycle = cycle;
     }
 
     @Override
