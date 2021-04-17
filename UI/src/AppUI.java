@@ -141,6 +141,7 @@ public class AppUI {
     }
 
     private void getDetailsForFile(InputObjectType inputObjectType){
+        this.coreEngine.stocks = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
         boolean inputValidation = false;
         String filePath;
@@ -290,7 +291,7 @@ public class AppUI {
                 System.out.println(inputObject.toString());
             }
         }catch (Exception exception){
-            System.out.println("Something went wrong:\n" + exception.getMessage() + exception.getStackTrace());
+            System.out.println("Something went wrong:\n" + exception.getMessage());
         }
 
     }
