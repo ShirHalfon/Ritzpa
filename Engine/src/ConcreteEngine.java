@@ -54,6 +54,7 @@ public class ConcreteEngine {
     private boolean sellinOrderAndBuyingOrderHaveEqualAmount_BUYING(Order buyingOrder, Stock stockToCommitOrderOn, Iterator<Order> iter, int price){
         Deal deal = new Deal(price, buyingOrder.getAmount());
         stockToCommitOrderOn.getDealsList().add(deal);
+        stockToCommitOrderOn.setStockPrice(price);
         iter.remove();
         return true;
     }
@@ -63,6 +64,7 @@ public class ConcreteEngine {
         buyingOrder.setAmount(buyingOrder.getAmount() - sellingOrder.getAmount());
         iter.remove();
         stockToCommitOrderOn.getDealsList().add(deal);
+        stockToCommitOrderOn.setStockPrice(price);
         /*remove the sell order from the selling order list*/
     }
 
@@ -70,6 +72,7 @@ public class ConcreteEngine {
         sellingOrder.setAmount(sellingOrder.getAmount() - buyingOrder.getAmount());
         Deal deal = new Deal(sellingOrder.getPrice(), buyingOrder.getAmount());
         stockToCommitOrderOn.getDealsList().add(deal);
+        stockToCommitOrderOn.setStockPrice(deal.getPrice());
     return true;
     }
 
@@ -100,6 +103,7 @@ public class ConcreteEngine {
     private boolean sellinOrderAndBuyingOrderHaveEqualAmount_SELLING(Order sellingOrder, Stock stockToCommitOrderOn, Iterator<Order> iter, int price) {
         Deal deal = new Deal(price, sellingOrder.getAmount());
         stockToCommitOrderOn.getDealsList().add(deal);
+        stockToCommitOrderOn.setStockPrice(price);
         iter.remove();
         return true;
         /*add the deal to the DealsList*/
@@ -108,6 +112,7 @@ public class ConcreteEngine {
     private void sellingOrderAmountBiggerThanGivenOrderAmounnt_SELLING(Order sellingOrder, Order buyingOrder, Stock stockToCommitOrderOn, Iterator<Order> iter){
         Deal deal = new Deal(buyingOrder.getPrice(), buyingOrder.getAmount());
         sellingOrder.setAmount(sellingOrder.getAmount()- buyingOrder.getAmount());
+        stockToCommitOrderOn.setStockPrice(deal.getPrice());
         iter.remove();
         stockToCommitOrderOn.getDealsList().add(deal);
     }
@@ -115,6 +120,7 @@ public class ConcreteEngine {
     private boolean buyingOrderAmountBiggerThanGivenOrderAmounnt_SELLING(Order sellingOrder, Order buyingOrder, Stock stockToCommitOrderOn) {
         buyingOrder.setAmount(buyingOrder.getAmount()- sellingOrder.getAmount());
         Deal deal = new Deal(buyingOrder.getPrice(), sellingOrder.getAmount());
+        stockToCommitOrderOn.setStockPrice(deal.getPrice());
         stockToCommitOrderOn.getDealsList().add(deal);
         return true;
         /*add the deal to the DealsList*/
