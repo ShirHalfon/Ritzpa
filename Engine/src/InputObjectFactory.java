@@ -37,7 +37,7 @@ public class InputObjectFactory {
                 break;
             }
             case EXIT:{
-                System.out.println("[DEBUG] in Factory createInputObject case EXIT");
+                //System.out.println("[DEBUG] in Factory createInputObject case EXIT");
 
                 inputObject = new ExitInputObject();
             }

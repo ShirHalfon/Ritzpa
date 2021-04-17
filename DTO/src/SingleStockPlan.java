@@ -83,39 +83,54 @@ public class SingleStockPlan implements IDTOPlan {
 
     public void setDealsList(ArrayList<Deal> dealsList) {
         StringBuilder stringToBuild = new StringBuilder("- Deals List:\n");
-        int i = 1;
-        for(Deal deal:dealsList)
+        if(stockToExtractData.getDealsList().size() == 0)
         {
-            DealPlan newDeal = new DealPlan(deal);
-            stringToBuild.append("#").append(i).append(" ");
-            stringToBuild.append(newDeal.toString());
-            i++;
+            stringToBuild.append("\tThere are no deals to present\n");
+        }else{
+            int i = 1;
+            for(Deal deal:dealsList)
+            {
+                DealPlan newDeal = new DealPlan(deal);
+                stringToBuild.append("#").append(i).append(" ");
+                stringToBuild.append(newDeal.toString());
+                i++;
+            }
         }
          this.dealsList = stringToBuild.toString();
     }
 
     public void setSellingOrdersList(ArrayList<Order> sellingOrdersList) {
         StringBuilder stringToBuild = new StringBuilder("- Selling Orders List:\n");
-        int i = 1;
-        for(Order order:sellingOrdersList)
+        if(stockToExtractData.getSellingOrders().size() == 0)
         {
-            OrderPlan newOrder = new OrderPlan(order);
-            stringToBuild.append("#").append(i).append(" ");
-            stringToBuild.append(newOrder.toString());
-            i++;
+            stringToBuild.append("\tThere are no selling orders to present\n");
+        }else{
+            int i = 1;
+            for(Order order:sellingOrdersList)
+            {
+                OrderPlan newOrder = new OrderPlan(order);
+                stringToBuild.append("#").append(i).append(" ");
+                stringToBuild.append(newOrder.toString());
+                i++;
+            }
         }
         this.sellingOrdersList = stringToBuild.toString();
     }
 
     public void setBuyingOrdersList(ArrayList<Order> buyingOrdersList) {
         StringBuilder stringToBuild = new StringBuilder("- Buying Orders List:\n");
-        int i = 1;
-        for(Order order:buyingOrdersList)
+        if(stockToExtractData.getBuyingOrders().size() == 0)
         {
-            OrderPlan newOrder = new OrderPlan(order);
-            stringToBuild.append("#").append(i).append(" ");
-            stringToBuild.append(newOrder.toString());
-            i++;
+            stringToBuild.append("\tThere are no buying orders to present\n");
+        }else{
+            int i = 1;
+            for(Order order:buyingOrdersList)
+            {
+                OrderPlan newOrder = new OrderPlan(order);
+                stringToBuild.append("#").append(i).append(" ");
+                stringToBuild.append(newOrder.toString());
+                i++;
+            }
         }
         this.buyingOrdersList = stringToBuild.toString();
     }

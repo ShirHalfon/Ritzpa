@@ -19,12 +19,12 @@ public class StocksListPlan implements IDTOPlan {
     }
 
     public void setDataField(ArrayList<Stock> stocksList) {
-        StringBuilder stringToBuild = new StringBuilder("*************\nStocks List\n*************\n");
+        StringBuilder stringToBuild = new StringBuilder("\n*************\nStocks List\n*************\n");
         int i = 1;
         for(Stock stock:stocksList)
         {
             SingleStockPlan newStock = new SingleStockPlan(stock);
-            stringToBuild.append("#").append(i).append(" Stock\n");
+            stringToBuild.append("\n#").append(i).append(" Stock\n");
             stringToBuild.append(newStock.getSymbol())
                          .append(newStock.getCompanyName())
                          .append(newStock.getPrice())

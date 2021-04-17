@@ -60,22 +60,17 @@ public class AppUI {
         InputObjectType inputObjectType = null;
 
         System.out.println("Hello and thank you for choosing Ritzpa\n" +
-                "Please, select the action you would like to perform:\n" +
+                "\nPlease, select the action you would like to perform:\n" +
                 "*To select your choice, please insert the number of the corresponding option (between 1 and " + menusList.size() + ")\n");
-        for (MenuItem menuItem:menusList)
-        {
-            System.out.println(i + "." + menuItem.tabName);
-            i++;
-        }
-        System.out.println("\nPlease insert your choice here: ");
+        printMenu(this.menusList);
         try{
-            System.out.println("[DEBUG] in try");
+            //System.out.println("[DEBUG] in try");
             while(true){
-                System.out.println("[DEBUG] in while 1");
+                //System.out.println("[DEBUG] in while 1");
 
                 while (!inputValidation)
                 {
-                    System.out.println("[DEBUG] in while 2");
+                    //System.out.println("[DEBUG] in while 2");
                     if(!scanner.hasNextInt()){
                         System.out.println("The input you provided isn't a number, please select a number between 1 and " + menusList.size());
                         scanner.nextLine();
@@ -83,7 +78,7 @@ public class AppUI {
                     }
                     else{
                         input = scanner.nextInt();
-                        System.out.println("[DEBUG] input is:" + input);
+                        //System.out.println("[DEBUG] input is:" + input);
                         if(input < 1 || input > menusList.size()){
                             System.out.println("The input you provided is out of range, please select a number between 1 and " + menusList.size());
                         }else if((input != 1 && input != menusList.size()) && !fileLoaded){
@@ -95,19 +90,30 @@ public class AppUI {
                         }
                     }
                 }
-                System.out.println("[DEBUG] after while 2");
+                //System.out.println("[DEBUG] after while 2");
                 inputObjectType = InputObjectType.values()[input -1];
-                System.out.println("[DEBUG] input object type is:" + inputObjectType.toString());
+                //System.out.println("[DEBUG] input object type is:" + inputObjectType.toString());
                 getInputObject(inputObjectType);
-                System.out.println("[DEBUG] input object selected: " + this.inputObject.getClass().getName());
+                //System.out.println("[DEBUG] input object selected: " + this.inputObject.getClass().getName());
                 selected(this.inputObject, input);
-                System.out.println( "Please, select the action you would like to perform:\n" +
+                System.out.println( "\nPlease, select the action you would like to perform:\n" +
                         "*To select your choice, please insert the number of the corresponding option (between 1 and " + menusList.size() + ")\n");
+                printMenu(this.menusList);
                 inputValidation = false;
             }
         }catch (Exception exception){
             System.out.println("The was an new exception:\n" + Arrays.toString(exception.getStackTrace()));
         }
+    }
+
+    private void printMenu(ArrayList<MenuItem> menusList){
+        int i = 1;
+        for (MenuItem menuItem:menusList)
+        {
+            System.out.println(i + "." + menuItem.tabName);
+            i++;
+        }
+        System.out.println("\nPlease insert your choice here: ");
     }
 
     private void getInputObject(InputObjectType inputObjectType){
@@ -117,7 +123,7 @@ public class AppUI {
                 break;
             }
             case SHOWALLSTOCKS: {
-                System.out.println("[DEBUG] in getInputObject case SHOWALLSTOCKS");
+                //System.out.println("[DEBUG] in getInputObject case SHOWALLSTOCKS");
                 getDetailsForShowingAllStocks(inputObjectType);
                 break;
             }
@@ -134,7 +140,7 @@ public class AppUI {
                 break;
             }
             case EXIT:{
-                System.out.println("[DEBUG] in getInputObject case EXIT");
+                //System.out.println("[DEBUG] in getInputObject case EXIT");
                 getDetailsForExit(inputObjectType);
             }
         }
@@ -149,9 +155,13 @@ public class AppUI {
         while (!inputValidation){
             try{
                 filePath = scanner.nextLine();
-                coreEngine.fileNameCheck(filePath);
-                this.inputObject = this.factory.createInputObject(inputObjectType,filePath, coreEngine);
-                inputValidation = true;
+                if(filePath.charAt(filePath.length()-1) == '"' || filePath.charAt(0) == '"'){
+                    System.out.println("Please provide file path without quotation marks");
+                }else{
+                    coreEngine.fileNameCheck(filePath);
+                    this.inputObject = this.factory.createInputObject(inputObjectType,filePath, coreEngine);
+                    inputValidation = true;
+                }
             }catch (Exception exception){
                 System.out.println("Something went wrong with this action:" + exception.getMessage());
             }
@@ -159,7 +169,7 @@ public class AppUI {
     }
 
     private void getDetailsForShowingAllStocks(InputObjectType inputObjectType){
-        System.out.println("[DEBUG] in getDetailsForShowAllStocks");
+        //System.out.println("[DEBUG] in getDetailsForShowAllStocks");
         this.builder = new StockListBuilder();
         //this.plan = new StocksListPlan();
         this.inputObject = this.factory.createInputObject(inputObjectType,
@@ -203,20 +213,6 @@ public class AppUI {
         OrderDirection direction;
         String symbol;
         String tempInput;
-
-       /* System.out.println("Please enter wanted price (higher than 0):");
-        price = scanner.nextInt();
-        System.out.println("Please enter wanted amount (higher than 0):");
-        amount = scanner.nextInt();
-        System.out.println("Would you like to sell stocks or buy stocks?(for selling insert s/S and for buying insert b/B)");
-        tempInput = scanner.nextLine();
-        System.out.println("Please enter symbol:");
-        symbol = scanner.nextLine();*/
-
-
-
-
-
 
         while(!inputValidation){
             System.out.println("Please enter wanted price (higher than 0):");
@@ -267,7 +263,7 @@ public class AppUI {
     }
 
     private void getDetailsForExit(InputObjectType inputObjectType){
-        System.out.println("[DEBUG] in getDetailsForExit");
+        //System.out.println("[DEBUG] in getDetailsForExit");
 
         this.inputObject = this.factory.createInputObject(inputObjectType);
     }
@@ -283,12 +279,16 @@ public class AppUI {
     }
 
     private void selected(IInputObject inputObject, int actionInput){
-        System.out.println("[DEBUG] in selected with action " + actionInput);
+        //System.out.println("[DEBUG] in selected with action " + actionInput);
         try{
             this.menusList.get(actionInput-1).command.execute(inputObject);
 
             if(inputObject != null){
                 System.out.println(inputObject.toString());
+                if(inputObject.getClass().getName().equals(OrderActionInputObject.class.getName())){
+                    /**print num of new deals*/
+                    System.out.println("To check if new deals were created, select option 5 next");
+                }
             }
         }catch (Exception exception){
             System.out.println("Something went wrong:\n" + exception.getMessage());

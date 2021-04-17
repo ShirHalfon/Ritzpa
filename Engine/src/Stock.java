@@ -1,16 +1,5 @@
 import java.util.ArrayList;
-
-
-
-
 public class Stock {
-
-    /*
-    * 1. Add method to work with injection points for the way of the sort with what we have learned yesterday
-    *
-    *
-    * */
-
 
     private final String companyName; //must have c'tor
     private final String symbol;
@@ -18,6 +7,7 @@ public class Stock {
     private ArrayList<Deal> dealsList;
     private ArrayList<Order> buyingOrders;
     private ArrayList<Order> sellingOrders;
+    private int numberOfNewDeals;
 
     public Stock(String companyName, String m_Symbol, int stockPrice) {
         this.companyName = companyName;
@@ -26,6 +16,7 @@ public class Stock {
         this.dealsList = new ArrayList<>();
         this.buyingOrders = new ArrayList<>();
         this.sellingOrders = new ArrayList<>();
+        this.numberOfNewDeals = 0;
     }
 
     public String getCompanyName() {
@@ -51,6 +42,8 @@ public class Stock {
     public ArrayList<Order> getSellingOrders() {
         return sellingOrders;
     }
+
+
 
     public void setStockPrice(int stockPrice) {
         this.stockPrice = stockPrice;

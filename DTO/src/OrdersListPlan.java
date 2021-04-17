@@ -16,12 +16,12 @@ public class OrdersListPlan implements IDTOPlan {
     }
 
     public void setDataField(ArrayList<Stock> stocksList) {
-        StringBuilder stringToBuild = new StringBuilder("*************\nOrders List\n*************\n");
+        StringBuilder stringToBuild = new StringBuilder("\n*************\nOrders List\n*************\n");
         int i = 1;
         for(Stock stock:stocksList)
         {
             SingleStockPlan newStock = new SingleStockPlan(stock);
-            stringToBuild.append("#").append(i).append(" Stock: ").append(newStock.getCompanyName()).append("\n")
+            stringToBuild.append("\n#").append(i).append(" Stock: ").append(newStock.getCompanyName())
                          .append(newStock.getSellingOrdersList())
                          .append(newStock.getBuyingOrdersList())
                          .append(newStock.getDealsList());
