@@ -1,6 +1,3 @@
-import com.sun.corba.se.pept.encoding.InputObject;
-import com.sun.xml.internal.ws.api.pipe.Engine;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -25,6 +22,7 @@ public class AppUI {
         this.inputObject = null;
         this.builder = null;
         this.plan = null;
+        this.factory = new InputObjectFactory();
     }
 
     private void initCommands(){
@@ -71,28 +69,39 @@ public class AppUI {
         }
         System.out.println("\nPlease insert your choice here: ");
         try{
+            System.out.println("[DEBUG] in try");
             while(true){
+                System.out.println("[DEBUG] in while 1");
+
                 while (!inputValidation)
                 {
-                    input = scanner.nextInt();
-                    if(input < 1 || input > menusList.size()){
-                        System.out.println("The input you provided is out of range, please select a number between 1 and " + menusList.size());
-                    }else if(!scanner.hasNextInt()){
-                        System.out.println("The input you provided isn't a number, pleaseselect a number between 1 and " + menusList.size());
-                    }else if((input != 1 || input != menusList.size()) && !fileLoaded){
-                        System.out.println("There is no data loaded in the system, please select option 1 and load a new file");
-                    }else {
-                        fileLoaded = true;
-                        System.out.println("Input was selected successfully");
-                        inputValidation = true;
+                    System.out.println("[DEBUG] in while 2");
+                    if(!scanner.hasNextInt()){
+                        System.out.println("The input you provided isn't a number, please select a number between 1 and " + menusList.size());
+                    }
+                    else{
+                        input = scanner.nextInt();
+                        System.out.println("[DEBUG] input is:" + input);
+                        if(input < 1 || input > menusList.size()){
+                            System.out.println("The input you provided is out of range, please select a number between 1 and " + menusList.size());
+                        }else if((input != 1 && input != menusList.size()) && !fileLoaded){
+                            System.out.println("There is no data loaded in the system, please select option 1 and load a new file");
+                        }else {
+                            fileLoaded = true;
+                            System.out.println("Input was selected successfully");
+                            inputValidation = true;
+                        }
                     }
                 }
+                System.out.println("[DEBUG] after while 2");
                 inputObjectType = InputObjectType.values()[input -1];
+                System.out.println("[DEBUG] input object type is:" + inputObjectType.toString());
                 getInputObject(inputObjectType);
+                System.out.println("[DEBUG] input object selected: " + this.inputObject.getClass().getName());
                 selected(this.inputObject, input);
             }
         }catch (Exception exception){
-            System.out.println("The was an exception:\n" + Arrays.toString(exception.getStackTrace()));
+            System.out.println("The was an new exception:\n" + Arrays.toString(exception.getStackTrace()));
         }
     }
 
@@ -118,7 +127,8 @@ public class AppUI {
                 getDetailsForShowAllOrders(inputObjectType);
                 break;
             }
-            case EXIST:{
+            case EXIT:{
+                System.out.println("[DEBUG] in getInputObject case EXIT");
                 getDetailsForExit(inputObjectType);
             }
         }
@@ -229,6 +239,8 @@ public class AppUI {
     }
 
     private void getDetailsForExit(InputObjectType inputObjectType){
+        System.out.println("[DEBUG] in getDetailsForExit");
+
         this.inputObject = this.factory.createInputObject(inputObjectType);
     }
 
@@ -244,7 +256,7 @@ public class AppUI {
 
     private void selected(IInputObject inputObject, int actionInput){
         try{
-            this.menusList.get(actionInput).command.execute(inputObject);
+            this.menusList.get(actionInput-1).command.execute(inputObject);
         }catch (Exception exception){
             System.out.println("Something went wrong:\n" + exception.getMessage() + exception.getStackTrace());
         }

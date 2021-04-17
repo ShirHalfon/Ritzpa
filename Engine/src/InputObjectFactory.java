@@ -36,8 +36,10 @@ public class InputObjectFactory {
                 inputObject = new ShowListsFromAllStocksInputObject((ArrayList<Stock>)objects[0], (IDTOBuilder)objects[1], (IDTOPlan)objects[2]);
                 break;
             }
-            case EXIST:{
-                inputObject = (IInputObject) new ExitInputObject();
+            case EXIT:{
+                System.out.println("[DEBUG] in Factory createInputObject case EXIT");
+
+                inputObject = new ExitInputObject();
             }
         }
         return inputObject;
