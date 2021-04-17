@@ -13,7 +13,7 @@ public class ConcreteEngine {
 
     public Stock findStockByName(String stockName) {
         for (Stock stock : this.getStockList()) {
-            if (stockName.compareTo(stock.getCompanyName()) == 0)
+            if (stockName.compareToIgnoreCase(stock.getCompanyName()) == 0)
                 return stock;
         }
         return null;
@@ -173,7 +173,7 @@ public class ConcreteEngine {
 
     public static Stock findStockByName(String stockName,ConcreteEngine engine) {
         for (Stock stock: engine.getStockList()) {
-            if(stockName.compareTo(stock.getCompanyName())==0)
+            if(stockName.compareToIgnoreCase(stock.getCompanyName())==0)
                 return stock;
         }
         return null;
