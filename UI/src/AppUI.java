@@ -78,6 +78,8 @@ public class AppUI {
                     System.out.println("[DEBUG] in while 2");
                     if(!scanner.hasNextInt()){
                         System.out.println("The input you provided isn't a number, please select a number between 1 and " + menusList.size());
+                        scanner.nextLine();
+                        scanner.nextLine();
                     }
                     else{
                         input = scanner.nextInt();
@@ -200,6 +202,21 @@ public class AppUI {
         OrderDirection direction;
         String symbol;
         String tempInput;
+
+       /* System.out.println("Please enter wanted price (higher than 0):");
+        price = scanner.nextInt();
+        System.out.println("Please enter wanted amount (higher than 0):");
+        amount = scanner.nextInt();
+        System.out.println("Would you like to sell stocks or buy stocks?(for selling insert s/S and for buying insert b/B)");
+        tempInput = scanner.nextLine();
+        System.out.println("Please enter symbol:");
+        symbol = scanner.nextLine();*/
+
+
+
+
+
+
         while(!inputValidation){
             System.out.println("Please enter wanted price (higher than 0):");
             while(!scanner.hasNextInt()){
@@ -207,36 +224,39 @@ public class AppUI {
             }
             price = scanner.nextInt();
             if(price <= 0){
-                System.out.println("Please enter a number higher than 0");
+                System.out.println("Please enter a price higher than 0");
             }else {
                 System.out.println("Please enter wanted amount (higher than 0):");
                 while (!scanner.hasNextInt()){
                     System.out.println("Please enter numbers only");
                 }
                 amount = scanner.nextInt();
-                if(amount <= 0){
-                    System.out.println("Please enter a number higher than 0");
-                }else{
-                    System.out.println("Would you like to sell stocks or buy stocks?(for selling insert s/S and for buying insert b/B)");
-                    tempInput = scanner.nextLine();
-                    while(tempInput.compareToIgnoreCase("s") != 0 || tempInput.compareToIgnoreCase("b") != 0){
-                        System.out.println("Please enter s or b only");
-                    }
-                    if(tempInput.compareToIgnoreCase("s") == 0){
-                        direction = OrderDirection.SELLING;
-                    }else{
-                        direction = OrderDirection.BUYING;
-                    }
-                    System.out.println("Please enter symbol:");
-                    symbol = scanner.nextLine();
-                    while (!findStockByNameOrSymbol(symbol)){
-                        System.out.println("This symbol doesn't exist in the system, please enter a valid symbol:");
-                        symbol = scanner.nextLine();
-                    }
-                    this.orderToCommit = new Order(price, amount, type, direction, symbol);
-                    this.inputObject = this.factory.createInputObject(inputObjectType, this.orderToCommit, this.coreEngine);
-                    inputValidation = true;
+                while(amount <= 0) {
+                    System.out.println("Please enter an amount higher than 0");
+                    amount = scanner.nextInt();
                 }
+                scanner.nextLine();
+                System.out.println("Would you like to sell stocks or buy stocks?(for selling insert s/S and for buying insert b/B)");
+                tempInput = scanner.nextLine();
+                while (tempInput.compareToIgnoreCase("s") != 0 && tempInput.compareToIgnoreCase("b") != 0) {
+                    System.out.println("Please enter s or b only");
+                    tempInput = scanner.nextLine();
+                }
+                if (tempInput.compareToIgnoreCase("s") == 0) {
+                    direction = OrderDirection.SELLING;
+                } else {
+                    direction = OrderDirection.BUYING;
+                }
+                System.out.println("Please enter symbol:");
+                symbol = scanner.nextLine();
+                while (coreEngine.findStockBySymbol(symbol) == null) {
+                    System.out.println("This symbol doesn't exist in the system, please enter a valid symbol:");
+                    symbol = scanner.nextLine();
+                }
+                this.orderToCommit = new Order(price, amount, type, direction, symbol);
+                this.inputObject = this.factory.createInputObject(inputObjectType, this.orderToCommit, this.coreEngine);
+                inputValidation = true;
+
             }
         }
     }
