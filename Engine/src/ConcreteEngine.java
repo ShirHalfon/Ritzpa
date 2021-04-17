@@ -148,24 +148,21 @@ public class ConcreteEngine {
          */
         if(stockToCheck.getSymbol().length()==0)
             throw new Exception("The symbol of "+stockToCheck.getCompanyName()+" is an empty string");
-        else for(int i=0;i<stockToCheck.getSymbol().length();i++){
+        else for(int i=0;i<stockToCheck.getSymbol().length();i++){//check if english letters
             if(!(((stockToCheck.getSymbol().charAt(i)>='A')&&(stockToCheck.getSymbol().charAt(i)<='Z'))||(((stockToCheck.getSymbol().charAt(i)>='a')&&(stockToCheck.getSymbol().charAt(i)<='z')))))
                 throw new Exception("There is a non-letter char in the symbol of "+stockToCheck.getCompanyName());
         }
-        if((stockToCheck.getSymbol().compareToIgnoreCase(stockToCheck.getSymbol()))!=0){
-            throw new Exception("The symbol isnwt in uppercase");
-        }
-        if(stockToCheck.getStockPrice()<=0)
-        {
-            throw new Exception("the stock price is a non possitive number.");
+        if(stockToCheck.getStockPrice()<=0) {
+            throw new Exception("The stock price is a non possitive number.");
         }
         //GENERAL
+        if(findStockBySymbol(stockToCheck.getSymbol())!=null) {
+            throw new Exception("The Symbol "+stockToCheck.getSymbol()+" already exists.");
+        }
         Stock stockWithTheSameName=findStockByName(stockToCheck.getCompanyName(),engine);
-        if(stockWithTheSameName!=null)
-        {//there is a stock with the same name
+        if(stockWithTheSameName!=null) {//there is a stock with the same name
             //need to check the symbol
-            if((stockToCheck.getSymbol().compareTo(stockWithTheSameName.getSymbol()))!=0)
-            {
+            if((stockToCheck.getSymbol().compareTo(stockWithTheSameName.getSymbol()))!=0) {
                 throw new Exception("The company "+stockToCheck.getCompanyName()+" already exists with different symbol");
             }
         }
