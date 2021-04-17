@@ -23,4 +23,9 @@ public class ReadingANewFileInputObejct implements IInputObject{
     public void setAllStocksInOurDataStructures(ConcreteEngine allStocksInOurDataStructures) {
         this.allStocksInOurDataStructures = allStocksInOurDataStructures;
     }
+
+    @Override
+    public String toString() {
+        return "Reading a new file from: " + fileNameToReadFrom;
+    }
 }

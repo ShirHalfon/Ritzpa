@@ -23,4 +23,9 @@ public class OrderActionInputObject implements IInputObject{
     public void setEngine(ConcreteEngine engine) {
         this.engine = engine;
     }
+
+    @Override
+    public String toString() {
+        return "Order action to commit" + orderToCommit.toString();
+    }
 }

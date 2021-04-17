@@ -41,6 +41,7 @@ public class Command {
 
         @Override
         public void execute(IInputObject inputObject) throws Exception {
+            System.out.println("[DEBUG] in execute in object: ShowAllStocks" );
             client.ShowAllStocks(inputObject);
         }
     }

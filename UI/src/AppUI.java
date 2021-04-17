@@ -99,6 +99,9 @@ public class AppUI {
                 getInputObject(inputObjectType);
                 System.out.println("[DEBUG] input object selected: " + this.inputObject.getClass().getName());
                 selected(this.inputObject, input);
+                System.out.println( "Please, select the action you would like to perform:\n" +
+                        "*To select your choice, please insert the number of the corresponding option (between 1 and " + menusList.size() + ")\n");
+                inputValidation = false;
             }
         }catch (Exception exception){
             System.out.println("The was an new exception:\n" + Arrays.toString(exception.getStackTrace()));
@@ -112,6 +115,7 @@ public class AppUI {
                 break;
             }
             case SHOWALLSTOCKS: {
+                System.out.println("[DEBUG] in getInputObject case SHOWALLSTOCKS");
                 getDetailsForShowingAllStocks(inputObjectType);
                 break;
             }
@@ -152,6 +156,9 @@ public class AppUI {
     }
 
     private void getDetailsForShowingAllStocks(InputObjectType inputObjectType){
+        System.out.println("[DEBUG] in getDetailsForShowAllStocks");
+        this.builder = new StockListBuilder();
+        //this.plan = new StocksListPlan();
         this.inputObject = this.factory.createInputObject(inputObjectType,
                 this.coreEngine.stocks, this.builder, this.plan);
     }
@@ -255,10 +262,16 @@ public class AppUI {
     }
 
     private void selected(IInputObject inputObject, int actionInput){
+        System.out.println("[DEBUG] in selected with action " + actionInput);
         try{
             this.menusList.get(actionInput-1).command.execute(inputObject);
+
+            if(inputObject != null){
+                System.out.println(inputObject.toString());
+            }
         }catch (Exception exception){
             System.out.println("Something went wrong:\n" + exception.getMessage() + exception.getStackTrace());
         }
+
     }
 }

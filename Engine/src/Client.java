@@ -48,11 +48,13 @@ public class Client {
          * 5. Sum of all deals made so far (can use the Stream Method)
          * Note: This can't be chosen without a file in database
          * */
+        System.out.println("[DEBUG] in client: ShowAllStocks");
         try {
-            ((ShowListsFromAllStocksInputObject)inputObject).builderToInit = new StockListBuilder();
+            //((ShowListsFromAllStocksInputObject)inputObject).builderToInit = new StockListBuilder();
             ((ShowListsFromAllStocksInputObject)inputObject).planToInit =
                     ((ShowListsFromAllStocksInputObject)inputObject).builderToInit
                     .getDTO(((ShowListsFromAllStocksInputObject)inputObject).stocks);
+            //System.out.println("[DEBUG]\n" + ((ShowListsFromAllStocksInputObject) inputObject).planToInit.toString());
             }
         catch (Exception exception) {
             throw exception;

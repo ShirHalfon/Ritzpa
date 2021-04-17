@@ -2,8 +2,11 @@ import java.util.ArrayList;
 
 public class StocksListPlan implements IDTOPlan {
 
-    private final ArrayList<Stock> stocksList;
+    private ArrayList<Stock> stocksList;
     private String data;
+
+    public StocksListPlan() {
+    }
 
     public StocksListPlan(ArrayList<Stock> stockList) {
         this.stocksList = stockList;

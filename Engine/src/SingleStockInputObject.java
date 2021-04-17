@@ -33,4 +33,9 @@ public class SingleStockInputObject implements IInputObject{
     public void setPlanToInit(IDTOPlan planToInit) {
         this.planToInit = planToInit;
     }
+
+    @Override
+    public String toString() {
+        return planToInit.toString();
+    }
 }
