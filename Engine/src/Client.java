@@ -11,7 +11,7 @@ public class Client {
     private final String JAXB_XML_GAME_PACKAGE_NAME = "Generated";
 
     public void ReadingANewFile(IInputObject inputObject) throws Exception {
-
+        /** Add the reading of the users, item, holdings*/
         IDTOBuilder builder;
         IDTOPlan plan;
         ConcreteEngine engine = new ConcreteEngine();
