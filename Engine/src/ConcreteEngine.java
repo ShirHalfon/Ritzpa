@@ -1,10 +1,12 @@
-import java.util.ArrayList;
-import java.util.Iterator;
+import Generated2.RseItem;
+
+import java.util.*;
 
 
 public class ConcreteEngine {
 
-    ArrayList<Stock> stocks = new ArrayList<>();
+    ArrayList<Stock>    stocks = new ArrayList<>();
+    Hashtable<String, User> users = new Hashtable<>();
 
     public ArrayList<Stock> getStockList() {
         return this.stocks;
@@ -168,16 +170,6 @@ public class ConcreteEngine {
     }
 
 
-    public void OrderAction(IInputObject inputObject) throws Exception {
-        OrderActionInputObject orderActionInputObject = (OrderActionInputObject)inputObject;
-        if(orderActionInputObject.orderToCommit.getType() == OrderType.LMT) {
-            LMTOrder(orderActionInputObject);
-        }
-        else if(orderActionInputObject.orderToCommit.getType() == OrderType.MKT) {
-            MKTOrder(orderActionInputObject);
-        }
-    }
-
     public void MKTOrder(OrderActionInputObject orderActionInputObject) throws Exception {
         if( orderActionInputObject.orderToCommit.getDirection() == OrderDirection.BUYING){
             MTKOrderBuyingDirection(orderActionInputObject);
@@ -254,7 +246,7 @@ public class ConcreteEngine {
         return isOrderComplete;
     }
 
-    private void LMTOrder(OrderActionInputObject orderActionInputObject) throws Exception {
+    public void LMTOrder(OrderActionInputObject orderActionInputObject) throws Exception {
         Boolean isOrderComplete = false;
         //Validations
         Stock stockToCommitOrderOn = orderActionInputObject.engine
@@ -286,5 +278,36 @@ public class ConcreteEngine {
                             isOrderComplete, stockToCommitOrderOn);
 
         }
+    }
+
+    private void itemOfUserCheck(UserItem itemToCheck) throws Exception {
+        if(findStockBySymbol(itemToCheck.getSymbol()) == null)
+            throw new Exception(String.format("There is no stock with the symbol: {0}",itemToCheck.getSymbol()));
+        if (itemToCheck.getAmount()>1)
+            throw new Exception(String.format("The amount is incorect. The given amount is: {0}",
+                    itemToCheck.getAmount()));
+    }
+
+    public void ConverUsersListFromXMLFile(Generated2.RizpaStockExchangeDescriptor RSEexchangeDescriptor) throws Exception{
+
+        for(Generated2.RseUser user :  RSEexchangeDescriptor.getRseUsers().getRseUser())
+        {
+            List<UserItem> userItemList = new ArrayList<>();
+            for(RseItem item : user.getRseHoldings().getRseItem())
+            {
+                UserItem itemToAdd = new UserItem();
+                itemToAdd.setAmount(item.getQuantity());
+                itemToAdd.setSymbol(item.getSymbol());
+                itemOfUserCheck(itemToAdd);
+                userItemList.add(itemToAdd);
+            }
+
+            User userToAdd = new User(user.getName(), userItemList);
+            user.getName();
+            if(users.get(user.getName()) == null)//Add if not exists.
+                users.put(user.getName(), userToAdd);
+            else throw  new Exception(String.format("The user with the name: {0} is allready exists.", user.getName()));
+        }
+
     }
 }
