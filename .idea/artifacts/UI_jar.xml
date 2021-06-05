@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="UI:jar">
+    <output-path>$USER_HOME$/Desktop/RSE-EX01/Jar Files</output-path>
+    <root id="archive" name="UI.jar">
+      <element id="module-output" name="UI" />
+      <element id="module-output" name="DTO" />
+      <element id="module-output" name="Engine" />
+      <element id="library" level="project" name="src" />
+    </root>
+  </artifact>
+</component>

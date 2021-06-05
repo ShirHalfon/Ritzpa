@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="DTO:jar">
+    <output-path>$USER_HOME$/Desktop/RSE-EX01/Jar Files</output-path>
+    <root id="archive" name="DTO.jar">
+      <element id="module-output" name="DTO" />
+      <element id="module-output" name="Engine" />
+    </root>
+  </artifact>
+</component>
